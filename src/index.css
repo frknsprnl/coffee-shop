@@ -18,3 +18,8 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+::selection {
+  background-color: #2b2726;
+}
+
+

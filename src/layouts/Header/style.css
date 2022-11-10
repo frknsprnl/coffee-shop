@@ -1,0 +1,11 @@
+.nav-item:after {
+  transition: all ease-in-out 0.3s;
+  background: none repeat scroll 0 0 #cda154;
+  content: "";
+  display: block;
+  height: 1.8px;
+  width: 0;
+}
+.nav-item:hover:after {
+  width: 100%;
+}
