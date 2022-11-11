@@ -4,8 +4,7 @@ video {
 }
 
 h1,
-span,
-button {
+span {
   animation: fadeIn 1.5s ease-in both;
 }
 

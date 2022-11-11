@@ -8,7 +8,7 @@ import { Outlet, Link } from "react-router-dom";
 
 function Header() {
   return (
-    <div className="flex px-2 md:px-4 w-full items-center justify-between sticky top-0 z-20 bg-transparent">
+    <div className="flex px-2 md:px-4 w-full items-center justify-between sticky top-0 z-20 bg-black">
       <Link to="/">
         <img
           src={textLogo}
