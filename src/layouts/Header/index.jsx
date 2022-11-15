@@ -40,7 +40,7 @@ function Header() {
         </Link>
       </div>
       <div className="flex text-white mr-2 gap-2">
-        <Link to="" className="p-4 text-xl hover:text-[#cda154]">
+        <Link to="/login" className="p-4 text-xl hover:text-[#cda154]">
           <FontAwesomeIcon icon={faUser} />
         </Link>
         <Link to="" className="p-4 text-xl hover:text-[#cda154]">
