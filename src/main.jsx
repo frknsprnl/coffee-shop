@@ -13,6 +13,7 @@ import Contact from './pages/Contact'
 import Login from './pages/Login';
 import Basket from './pages/Basket';
 import Register from './pages/Register';
+import User from './pages/User';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/user",
+    element: <User />,
   },
 ]);
 
