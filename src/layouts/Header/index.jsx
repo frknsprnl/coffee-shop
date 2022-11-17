@@ -2,9 +2,9 @@ import React from "react";
 import textLogo from "../../assets/coffee-shop-text-logo.png";
 import logo from "../../assets/coffee-shop-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
+import { faBasketShopping, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import './style.css'
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -41,7 +41,7 @@ function Header() {
       </div>
       <div className="flex text-white mr-2 gap-2">
         <Link to="/login" className="p-4 text-xl hover:text-[#cda154]">
-          <FontAwesomeIcon icon={faUser} />
+          <FontAwesomeIcon icon={faRightToBracket} />
         </Link>
         <Link to="/basket" className="p-4 text-xl hover:text-[#cda154]">
           <FontAwesomeIcon icon={faBasketShopping} />

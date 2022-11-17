@@ -12,6 +12,7 @@ import Blog from './pages/Blog'
 import Contact from './pages/Contact'
 import Login from './pages/Login';
 import Basket from './pages/Basket';
+import Register from './pages/Register';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/basket",
     element: <Basket />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 
