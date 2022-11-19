@@ -1,11 +1,10 @@
 import React from "react";
-import Header from "../../layouts/Header";
+import MainLayout from "../../layouts/MainLayout";
 import "./style.css";
 
 function Contact() {
   return (
-    <div>
-      <Header />
+    <MainLayout>
       <div className="h-full pt-2 pb-8 px-6 md:px-8 flex justify-center">
         <div className="text-white flex flex-col items-center md:w-3/6 px-6">
           <span className="text-sm md:text-base text-center">
@@ -18,8 +17,8 @@ function Contact() {
           </h1>
           <span className="mt-3">
             <address className="text-sm md:text-base">
-              Sazova, Ulusal Egemenlik Blv., Masal
-              Şatosu 26150 Tepebaşı / Eskişehir
+              Sazova, Ulusal Egemenlik Blv., Masal Şatosu 26150 Tepebaşı /
+              Eskişehir
             </address>
           </span>
           <span className="mt-4 mr-auto">
@@ -61,17 +60,26 @@ function Contact() {
                 <label htmlFor="">Telefon</label>
               </div>
               <div className="input-field">
-                  <textarea className="form-item hover:border-[#cda154] focus:border-[#cda154]" name="" id="" cols="30" rows="6" required ></textarea>
-                  <label htmlFor="">Mesaj</label>
+                <textarea
+                  className="form-item hover:border-[#cda154] focus:border-[#cda154]"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="6"
+                  required
+                ></textarea>
+                <label htmlFor="">Mesaj</label>
               </div>
               <div className="w-full">
-                <button className="text-[#777] hover:text-white form-item hover:border-[#cda154] focus:border-[#cda154]">Gönder</button>
+                <button className="text-[#777] hover:text-white form-item hover:border-[#cda154] focus:border-[#cda154]">
+                  Gönder
+                </button>
               </div>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 }
 

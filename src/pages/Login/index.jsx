@@ -1,14 +1,15 @@
 import React from "react";
-import Header from "../../layouts/Header";
 import { Link } from "react-router-dom";
+import MainLayout from "../../layouts/MainLayout";
 
 function Login() {
   return (
-    <>
-      <Header />
+    <MainLayout>
       <div className="flex flex-col items-center py-8 mt-16">
         <div className="w-[320px] md:w-[500px] border-[1.6px] px-5 md:px-10 pb-12 rounded-xl">
-          <h1 className="text-2xl text-center text-[#cda154] py-8">GİRİŞ YAP</h1>
+          <h1 className="text-2xl text-center text-[#cda154] py-8">
+            GİRİŞ YAP
+          </h1>
           <form action="" className="flex flex-col gap-4">
             <div className="input-field">
               <input
@@ -33,9 +34,14 @@ function Login() {
             </div>
           </form>
         </div>
-        <span className="text-[#777] mt-3 text-sm">Kayıtlı değil misin? <Link to="/register" className="text-[#cda154] hover:underline">Kayıt ol</Link> </span>
+        <span className="text-[#777] mt-3 text-sm">
+          Kayıtlı değil misin?{" "}
+          <Link to="/register" className="text-[#cda154] hover:underline">
+            Kayıt ol
+          </Link>{" "}
+        </span>
       </div>
-    </>
+    </MainLayout>
   );
 }
 

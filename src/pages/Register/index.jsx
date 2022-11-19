@@ -1,13 +1,14 @@
 import React from "react";
-import Header from "../../layouts/Header";
+import MainLayout from "../../layouts/MainLayout";
 
 function Register() {
   return (
-    <>
-      <Header />
+    <MainLayout>
       <div className="flex flex-col items-center py-8 mt-6">
         <div className="w-[320px] md:w-[500px] border-[1.6px] px-5 md:px-10 pb-12 rounded-xl">
-          <h1 className="text-xl md:text-2xl text-center text-[#cda154] py-8">HESAP OLUŞTUR</h1>
+          <h1 className="text-xl md:text-2xl text-center text-[#cda154] py-8">
+            HESAP OLUŞTUR
+          </h1>
           <form action="" className="flex flex-col gap-4">
             <div className="input-field">
               <input
@@ -57,7 +58,7 @@ function Register() {
           </form>
         </div>
       </div>
-    </>
+    </MainLayout>
   );
 }
 

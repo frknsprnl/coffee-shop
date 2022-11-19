@@ -1,13 +1,12 @@
 import React from "react";
-import Header from "../../layouts/Header";
 import productImage from "../../assets/1kg.png";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MainLayout from "../../layouts/MainLayout";
 
 function Basket() {
   return (
-    <div>
-      <Header />
+    <MainLayout>
       <div className="flex flex-col md:flex-row py-8 px-4 md:px-12 gap-4 justify-center">
         <div className="border-[1.6px] py-6 rounded-xl w-full md:w-1/2 text-white">
           <h1 className="text-lg md:text-xl font-semibold px-5">Sepetim</h1>
@@ -130,7 +129,10 @@ function Basket() {
               <b>19.99 TL</b>
             </li>
             <li className="flex justify-between">
-              <span title="75 TL ve Üzeri Kargo Bedava" className="w-40 overflow-hidden text-ellipsis">
+              <span
+                title="75 TL ve Üzeri Kargo Bedava"
+                className="w-40 overflow-hidden text-ellipsis"
+              >
                 75 TL ve Üzeri Kargo Bedava
               </span>
               <b>-19.99 TL</b>
@@ -147,7 +149,7 @@ function Basket() {
           </div>
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 }
 

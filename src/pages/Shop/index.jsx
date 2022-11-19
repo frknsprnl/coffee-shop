@@ -1,13 +1,12 @@
 import React from "react";
-import Header from "../../layouts/Header";
+import MainLayout from "../../layouts/MainLayout";
 import coffee1 from "../../assets/1kg.png";
 import coffee2 from "../../assets/500g.png";
 import coffee3 from "../../assets/250g.png";
 
 function Shop() {
   return (
-    <div className="min-h-full w-full">
-      <Header />
+    <MainLayout>
       <div className="h-full p-8 flex gap-6 flex-wrap justify-center">
         <div className="w-64 h-80 border-[1.6px] border-white rounded-xl overflow-hidden flex flex-col items-center">
           <img src={coffee1} alt="" className="h-32 w-32 mt-6" />
@@ -54,7 +53,7 @@ function Shop() {
           </div>
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 }
 
