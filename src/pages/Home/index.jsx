@@ -4,11 +4,14 @@ import coffeeCup from "../../assets/coffee-cup.jpg";
 import shippingImg from "../../assets/shipping.jpg";
 import coffeeRoast from "../../assets/coffee-roast.jpg";
 import natureImg from "../../assets/nature.jpg";
+import coffee1 from "../../assets/1kg.png";
 import coffee2 from "../../assets/500g.png";
+import coffee3 from "../../assets/250g.png";
 import MainLayout from "../../layouts/MainLayout";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import Button from "../../components/Button";
+import ShopItem from "../../components/ShopItem";
 
 function Home() {
   return (
@@ -25,7 +28,10 @@ function Home() {
           </Fade>
           <Fade left>
             <div className="flex justify-center pt-5">
-              <Link to="/shop" className="w-full max-w-[180px] md:max-w-[200px] lg:max-w-[230px]">
+              <Link
+                to="/shop"
+                className="w-full max-w-[180px] md:max-w-[200px] lg:max-w-[230px]"
+              >
                 <Button
                   name="Ürünleri İncele"
                   className="text-[#777] hover:text-white hover:border-[#cda154] focus:border-[#cda154] text-center text-lg"
@@ -65,44 +71,34 @@ function Home() {
         </div>
       </div>
       <div className="py-4 md:py-4 px-4 md:px-8">
-        <h1 className="text-[#cda154] text-lg md:text-2xl text-center">
+        <h1 className="text-[#cda154] text-lg md:text-2xl text-center py-2">
           -En Çok Satın Alınan Ürünler-
         </h1>
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-center py-8">
-          <div className="w-52 h-56 border-[1.6px] border-white rounded-xl overflow-hidden flex flex-col items-center">
-            <img src={coffee2} alt="" className="h-24 w-24 mt-6" />
-            <div className="flex flex-col items-center justify-evenly h-full">
-              <span className="text-base md:text-lg text-white font-semibold">
-                The Coffee (500 g)
-              </span>
-              <span className="text-sm md:text-base text-white font-medium">
-                149.99 TL
-              </span>
-            </div>
+        <Fade right>
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-center py-6">
+            <ShopItem
+              img={coffee1}             
+              name="The Coffee (1 kg)"
+              price="249.99"
+              button="false"
+              className="h-52 w-52 md:h-64 md:w-64"
+            />
+            <ShopItem
+              img={coffee2}             
+              name="The Coffee (500 g)"
+              price="149.99"
+              button="false"
+              className="h-52 w-52 md:h-64 md:w-64"
+            />
+            <ShopItem
+              img={coffee3}             
+              name="The Coffee (250 g)"
+              price="74.99"
+              button="false"
+              className="h-52 w-52 md:h-64 md:w-64"
+            />
           </div>
-          <div className="w-52 h-56 border-[1.6px] border-white rounded-xl overflow-hidden flex flex-col items-center">
-            <img src={coffee2} alt="" className="h-24 w-24 mt-6" />
-            <div className="flex flex-col items-center justify-evenly h-full">
-              <span className="text-base md:text-lg text-white font-semibold">
-                The Coffee (500 g)
-              </span>
-              <span className="text-sm md:text-base text-white font-medium">
-                149.99 TL
-              </span>
-            </div>
-          </div>
-          <div className="w-52 h-56 border-[1.6px] border-white rounded-xl overflow-hidden flex flex-col items-center">
-            <img src={coffee2} alt="" className="h-24 w-24 mt-6" />
-            <div className="flex flex-col items-center justify-evenly h-full">
-              <span className="text-base md:text-lg text-white font-semibold">
-                The Coffee (500 g)
-              </span>
-              <span className="text-sm md:text-base text-white font-medium">
-                149.99 TL
-              </span>
-            </div>
-          </div>
-        </div>
+        </Fade>
       </div>
       <div className="py-4 md:py-10 px-4 md:px-8">
         <div className="flex flex-col md:flex-row py-2 md:py-6">
