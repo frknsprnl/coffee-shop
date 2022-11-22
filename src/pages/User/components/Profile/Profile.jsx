@@ -2,6 +2,8 @@ import React from "react";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import InputField from "../../../../components/InputField";
+import TextAreaField from "../../../../components/TextAreaField";
 
 function Profile() {
   return (
@@ -14,46 +16,27 @@ function Profile() {
       </Link>
       <div className="flex flex-col gap-5 h-full justify-center">
         <div className="flex gap-2">
-          <div className="input-field">
-            <input
-              required
-              type="text"
-              className="form-item hover:border-[#cda154] focus:border-[#cda154] pointer-events-none text-center"
-              value="Furkan"
-            />
-            <label htmlFor="">Ad</label>
-          </div>
-          <div className="input-field">
-            <input
-              required
-              type="text"
-              className="form-item hover:border-[#cda154] focus:border-[#cda154] pointer-events-none text-center"
-              value="Süpürenel"
-            />
-            <label htmlFor="">Soyad</label>
-          </div>
-        </div>
-        <div className="input-field">
-          <input
-            required
-            type="text"
-            className="form-item hover:border-[#cda154] focus:border-[#cda154] pointer-events-none text-center"
-            value="frknsprnl@hotmail.com"
+          <InputField
+            label="Ad"
+            className="pointer-events-none text-center"
+            value="Furkan"
           />
-          <label htmlFor="">E-mail</label>
+          <InputField
+            label="Soyad"
+            className="pointer-events-none text-center"
+            value="Süpürenel"
+          />
         </div>
-        <div className="input-field">
-          <textarea
-            className="form-item hover:border-[#cda154] focus:border-[#cda154] pointer-events-none text-center"
-            name=""
-            id=""
-            cols="30"
-            rows="3"
-            value="26985 Brighton Lane, Lake Forest, CA 92630."
-            required
-          ></textarea>
-          <label htmlFor="">Adres</label>
-        </div>
+        <InputField
+          label="E-mail"
+          className="pointer-events-none text-center"
+          value="frknsprnl@hotmail.com"
+        />
+        <TextAreaField
+          label="Adres"
+          className="pointer-events-none text-center"
+          value="26985 Brighton Lane, Lake Forest, CA 92630."
+        />
       </div>
     </div>
   );

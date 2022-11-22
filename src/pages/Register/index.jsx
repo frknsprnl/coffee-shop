@@ -1,5 +1,7 @@
 import React from "react";
 import MainLayout from "../../layouts/MainLayout";
+import InputField from "../../components/InputField";
+import Button from "../../components/Button";
 
 function Register() {
   return (
@@ -10,50 +12,13 @@ function Register() {
             HESAP OLUŞTUR
           </h1>
           <form action="" className="flex flex-col gap-4">
-            <div className="input-field">
-              <input
-                required
-                type="text"
-                className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-              />
-              <label htmlFor="">Ad</label>
-            </div>
-            <div className="input-field">
-              <input
-                required
-                type="text"
-                className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-              />
-              <label htmlFor="">Soyad</label>
-            </div>
-            <div className="input-field">
-              <input
-                required
-                type="text"
-                className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-              />
-              <label htmlFor="">E-mail</label>
-            </div>
-            <div className="input-field">
-              <input
-                required
-                type="text"
-                className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-              />
-              <label htmlFor="">Şifre</label>
-            </div>
-            <div className="input-field">
-              <input
-                required
-                type="text"
-                className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-              />
-              <label htmlFor="">Şifre Tekrar</label>
-            </div>
+            <InputField label="Ad" />
+            <InputField label="Soyad" />
+            <InputField label="E-mail" />
+            <InputField label="Şifre" />
+            <InputField label="Şifre Tekrar" />
             <div className="w-full">
-              <button className="text-[#777] hover:text-white form-item hover:border-[#cda154] focus:border-[#cda154]">
-                Kayıt ol
-              </button>
+              <Button name="Kayıt Ol" />
             </div>
           </form>
         </div>

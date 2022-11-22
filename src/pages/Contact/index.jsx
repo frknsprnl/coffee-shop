@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "../../layouts/MainLayout";
-import "./style.css";
+import ContactForm from "../../components/ContactForm";
 
 function Contact() {
   return (
@@ -29,54 +29,7 @@ function Contact() {
             <span className="text-[#cda154]">Telefon: </span>&nbsp; 0850 888
             2626
           </span>
-          <form className="mt-5">
-            <div className="flex flex-col flex-wrap justify-center md:flex-row gap-y-5">
-              <div className="flex flex-col md:flex-row gap-x-3 gap-y-5 flex-1">
-                <div className="input-field">
-                  <input
-                    required
-                    type="text"
-                    className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-                  />
-                  <label htmlFor="" className="">
-                    Ad
-                  </label>
-                </div>
-                <div className="input-field">
-                  <input
-                    required
-                    type="text"
-                    className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-                  />
-                  <label htmlFor="">Soyad</label>
-                </div>
-              </div>
-              <div className="input-field">
-                <input
-                  required
-                  type="text"
-                  className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-                />
-                <label htmlFor="">Telefon</label>
-              </div>
-              <div className="input-field">
-                <textarea
-                  className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-                  name=""
-                  id=""
-                  cols="30"
-                  rows="6"
-                  required
-                ></textarea>
-                <label htmlFor="">Mesaj</label>
-              </div>
-              <div className="w-full">
-                <button className="text-[#777] hover:text-white form-item hover:border-[#cda154] focus:border-[#cda154]">
-                  Gönder
-                </button>
-              </div>
-            </div>
-          </form>
+          <ContactForm />
         </div>
       </div>
     </MainLayout>

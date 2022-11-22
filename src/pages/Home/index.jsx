@@ -8,6 +8,7 @@ import coffee2 from "../../assets/500g.png";
 import MainLayout from "../../layouts/MainLayout";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
+import Button from "../../components/Button";
 
 function Home() {
   return (
@@ -24,11 +25,11 @@ function Home() {
           </Fade>
           <Fade left>
             <div className="flex justify-center pt-5">
-              <Link
-                to="/shop"
-                className="text-[#777] hover:text-white form-item hover:border-[#cda154] focus:border-[#cda154] text-center text-lg max-w-[180px] md:max-w-[200px] lg:max-w-[230px]"
-              >
-                Ürünleri İncele
+              <Link to="/shop" className="w-full max-w-[180px] md:max-w-[200px] lg:max-w-[230px]">
+                <Button
+                  name="Ürünleri İncele"
+                  className="text-[#777] hover:text-white hover:border-[#cda154] focus:border-[#cda154] text-center text-lg"
+                />
               </Link>
             </div>
           </Fade>

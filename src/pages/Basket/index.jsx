@@ -3,6 +3,7 @@ import productImage from "../../assets/1kg.png";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MainLayout from "../../layouts/MainLayout";
+import Button from "../../components/Button";
 
 function Basket() {
   return (
@@ -143,9 +144,7 @@ function Basket() {
             <b>199.75 TL</b>
           </div>
           <div className="w-full mt-auto">
-            <button className="text-[#777] hover:text-white form-item hover:border-[#cda154] focus:border-[#cda154]">
-              Sepeti Onayla
-            </button>
+            <Button name="Sepeti Onayla" />
           </div>
         </div>
       </div>

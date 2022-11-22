@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import InputField from "../../../../components/InputField";
+import Button from "../../../../components/Button";
 
 function Email() {
   return (
@@ -14,27 +16,11 @@ function Email() {
       </Link>
       <form className="flex flex-col gap-5">
         <div className="flex flex-col md:flex-row gap-5 md:gap-2">
-          <div className="input-field">
-            <input
-              required
-              type="text"
-              className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-            />
-            <label htmlFor="">E-mail</label>
-          </div>
-          <div className="input-field">
-            <input
-              required
-              type="text"
-              className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-            />
-            <label htmlFor="">E-mail Tekrar</label>
-          </div>
+          <InputField label="E-mail " />
+          <InputField label="E-mail Tekrar" />
         </div>
         <div>
-          <button className="text-[#777] hover:text-white form-item hover:border-[#cda154] focus:border-[#cda154]">
-            Gönder
-          </button>
+          <Button name="Değiştir" />
         </div>
       </form>
     </div>

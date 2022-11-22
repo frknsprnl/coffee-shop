@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import MainLayout from "../../layouts/MainLayout";
+import InputField from "../../components/InputField";
+import Button from "../../components/Button";
 
 function Login() {
   return (
@@ -11,34 +13,18 @@ function Login() {
             GİRİŞ YAP
           </h1>
           <form action="" className="flex flex-col gap-4">
-            <div className="input-field">
-              <input
-                required
-                type="text"
-                className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-              />
-              <label htmlFor="">E-mail</label>
-            </div>
-            <div className="input-field">
-              <input
-                required
-                type="text"
-                className="form-item hover:border-[#cda154] focus:border-[#cda154]"
-              />
-              <label htmlFor="">Şifre</label>
-            </div>
+            <InputField label="E-mail" />
+            <InputField label="Şifre" />
             <div className="w-full">
-              <button className="text-[#777] hover:text-white form-item hover:border-[#cda154] focus:border-[#cda154]">
-                Giriş
-              </button>
+              <Button name="Giriş" />
             </div>
           </form>
         </div>
         <span className="text-[#777] mt-3 text-sm">
-          Kayıtlı değil misin?{" "}
+          Kayıtlı değil misin?
           <Link to="/register" className="text-[#cda154] hover:underline">
             Kayıt ol
-          </Link>{" "}
+          </Link>
         </span>
       </div>
     </MainLayout>
