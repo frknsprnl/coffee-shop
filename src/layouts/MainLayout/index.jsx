@@ -12,7 +12,7 @@ function MainLayout({ children }) {
     }
   }, [location]);
 
-  const pagesWithFooter = ["", "shop", "about", "blog", "contact"];
+  const pagesWithFooter = ["", "shop", "about", "blog", "contact", "error"];
   return (
     <>
       <Header />

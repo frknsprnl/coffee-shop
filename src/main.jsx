@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import About from "./pages/About";
@@ -16,6 +16,7 @@ import Order from "./pages/User/components/Order/Order";
 import Password from "./pages/User/components/Edit/Password";
 import Email from "./pages/User/components/Edit/Email";
 import Edit from "./pages/User/components/Edit/Edit";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/error",
+    element: <Error />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/error" />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
