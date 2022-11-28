@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import About from "./pages/About";
@@ -17,6 +21,9 @@ import Password from "./pages/User/components/Edit/Password";
 import Email from "./pages/User/components/Edit/Email";
 import Edit from "./pages/User/components/Edit/Edit";
 import Error from "./pages/Error";
+import PrivateRoute from "./routes/PrivateRoutes";
+import { RecoilRoot } from "recoil";
+import LoggedInPrivateRoute from "./routes/LoggedInPrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -40,29 +47,41 @@ const router = createBrowserRouter([
     element: <Contact />,
   },
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
     path: "/basket",
     element: <Basket />,
   },
   {
-    path: "/register",
-    element: <Register />,
+    path: "/",
+    element: <LoggedInPrivateRoute />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+    ],
   },
   {
-    path: "/user",
-    element: <User />,
+    path: "/",
+    element: <PrivateRoute />,
     children: [
-      { path: "/user/profile", element: <Profile /> },
-      { path: "/user/orders", element: <Order /> },
       {
-        path: "/user/edit",
-        element: <Edit />,
+        path: "/user",
+        element: <User />,
         children: [
-          { path: "/user/edit/password", element: <Password /> },
-          { path: "/user/edit/email", element: <Email /> },
+          { path: "profile", element: <Profile /> },
+          { path: "orders", element: <Order /> },
+          {
+            path: "edit",
+            element: <Edit />,
+            children: [
+              { path: "password", element: <Password /> },
+              { path: "email", element: <Email /> },
+            ],
+          },
         ],
       },
     ],
@@ -74,11 +93,11 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <Navigate to="/error" />,
-  }
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <>
+  <RecoilRoot>
     <RouterProvider router={router} />
-  </>
+  </RecoilRoot>
 );

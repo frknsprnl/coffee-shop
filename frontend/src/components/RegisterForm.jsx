@@ -4,9 +4,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLoginState } from "../Recoil/User/useLoginState";
 
 function RegisterForm() {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useLoginState();
 
   const formik = useFormik({
     initialValues: {
@@ -37,13 +39,14 @@ function RegisterForm() {
         .oneOf([Yup.ref("password"), null], "Şifreler uyuşmuyor.")
         .required("Bu alan zorunludur."),
     }),
-    onSubmit: (values, { resetForm }) => {
-      axios
+    onSubmit: async (values, { resetForm }) => {
+      await axios
         .post("http://localhost:3000/user/signup", values)
         .then((resp) => {
-          console.log(resp.data.user.token);
+          localStorage.setItem("access-token", resp.data.user.token);
           resetForm();
-          navigate('/user');
+          setIsLoggedIn(true);
+          navigate("/user");
         })
         .catch((err) => {
           console.log(err.response.data.error);

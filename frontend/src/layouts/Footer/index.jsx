@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import FacebookSVG from "../../assets/brand-logos/FacebookSVG";
 import TwitterSVG from "../../assets/brand-logos/TwitterSVG";
 import InstagramSVG from "../../assets/brand-logos/InstagramSVG";
+import { useLoginState } from "../../Recoil/User/useLoginState";
 
 function Footer() {
+  const { isLoggedIn } = useLoginState();
   return (
     <div className="border-t-[1px] border-[#323232] mt-12 px-6 py-6 md:pt-10">
       <div className="flex flex-col md:flex-row justify-start md:justify-evenly py-6 gap-6">
@@ -76,21 +78,32 @@ function Footer() {
             </Link>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <h1 className="text-base font-semibold text-gray-600">Hesabım</h1>
-          <div className="flex flex-col text-sm md:text-base text-white">
-            <Link to="/user/profile" className="py-2 hover:text-[#cda154]">
-              Profil
-            </Link>
-            <Link to="/user/orders" className="py-2 hover:text-[#cda154]">
-              Siparişlerim
-            </Link>
+        {isLoggedIn && (
+          <div className="flex flex-col gap-2">
+            <h1 className="text-base font-semibold text-gray-600">Hesabım</h1>
+            <div className="flex flex-col text-sm md:text-base text-white">
+              <Link to="/user/profile" className="py-2 hover:text-[#cda154]">
+                Profil
+              </Link>
+              <Link to="/user/orders" className="py-2 hover:text-[#cda154]">
+                Siparişlerim
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="flex gap-6 justify-between md:justify-center text-sm text-gray-600">
         <span>The Coffee Shop© </span>
-        <span className="text-gray-300">Github: <a target="_blank" href="https://github.com/frknsprnl" className="hover:underline hover:text-[#cda154]">frknsprnl</a></span>
+        <span className="text-gray-300">
+          Github:{" "}
+          <a
+            target="_blank"
+            href="https://github.com/frknsprnl"
+            className="hover:underline hover:text-[#cda154]"
+          >
+            frknsprnl
+          </a>
+        </span>
       </div>
     </div>
   );

@@ -10,9 +10,11 @@ import {
 import "./style.css";
 import { Link, useLocation } from "react-router-dom";
 import Helmet from "react-helmet";
+import { useLoginState } from "../../Recoil/User/useLoginState";
 
 function Header() {
   const location = useLocation();
+  const { isLoggedIn } = useLoginState();
   return (
     <div className="flex px-2 md:px-4 w-full items-center justify-between sticky top-0 z-20 bg-black">
       <Helmet>
@@ -20,7 +22,11 @@ function Header() {
           {location.pathname === "/"
             ? "The Coffee Shop"
             : `${
-                location.pathname.split("/").pop().charAt(0).toLocaleUpperCase() +
+                location.pathname
+                  .split("/")
+                  .pop()
+                  .charAt(0)
+                  .toLocaleUpperCase() +
                 location.pathname.split("/").pop().slice(1)
               } | The Coffee Shop`}
         </title>
@@ -56,12 +62,16 @@ function Header() {
         </Link>
       </div>
       <div className="flex text-white mr-2 gap-2">
-        <Link to="/login" className="p-4 text-xl hover:text-[#cda154]">
-          <FontAwesomeIcon icon={faRightToBracket} />
-        </Link>
-        <Link to="/user" className="p-4 text-xl hover:text-[#cda154]">
-          <FontAwesomeIcon icon={faUser} />
-        </Link>
+        {!isLoggedIn && (
+          <Link to="/login" className="p-4 text-xl hover:text-[#cda154]">
+            <FontAwesomeIcon icon={faRightToBracket} />
+          </Link>
+        )}
+        {isLoggedIn && (
+          <Link to="/user" className="p-4 text-xl hover:text-[#cda154]">
+            <FontAwesomeIcon icon={faUser} />
+          </Link>
+        )}
         <Link to="/basket" className="p-4 text-xl hover:text-[#cda154]">
           <FontAwesomeIcon icon={faBasketShopping} />
         </Link>

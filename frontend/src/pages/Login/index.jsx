@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import LoginForm from "../../components/LoginForm";
 import MainLayout from "../../layouts/MainLayout";
-import InputField from "../../components/InputField";
-import Button from "../../components/Button";
 
 function Login() {
   return (
@@ -12,18 +11,12 @@ function Login() {
           <h1 className="text-2xl text-center text-[#cda154] py-8">
             GİRİŞ YAP
           </h1>
-          <form action="" className="flex flex-col gap-4">
-            <InputField label="E-mail" />
-            <InputField label="Şifre" />
-            <div className="w-full">
-              <Button name="Giriş" />
-            </div>
-          </form>
+          <LoginForm />
         </div>
         <span className="text-[#777] mt-3 text-sm">
-          Kayıtlı değil misin?
+          Hesabın yok mu?{" "}
           <Link to="/register" className="text-[#cda154] hover:underline">
-            Kayıt ol
+            Hesap Oluştur
           </Link>
         </span>
       </div>
