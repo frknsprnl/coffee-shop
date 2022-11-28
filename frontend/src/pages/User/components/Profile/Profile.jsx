@@ -1,11 +1,13 @@
-import React from "react";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import InputField from "../../../../components/InputField";
 import TextAreaField from "../../../../components/TextAreaField";
+import { useUserState } from "../../../../Recoil/User/userState";
 
 function Profile() {
+  const { user } = useUserState();
+
   return (
     <div className="h-full w-full flex flex-col items-center px-4 text-white relative">
       <Link to="/user" className="absolute top-4 left-6">
@@ -19,23 +21,23 @@ function Profile() {
           <InputField
             label="Ad"
             className="pointer-events-none text-center"
-            value="Furkan"
+            defaultValue={user.name}
           />
           <InputField
             label="Soyad"
             className="pointer-events-none text-center"
-            value="Süpürenel"
+            defaultValue={user.surname}
           />
         </div>
         <InputField
           label="E-mail"
           className="pointer-events-none text-center"
-          value="frknsprnl@hotmail.com"
+          defaultValue={user.email}
         />
         <TextAreaField
           label="Adres"
           className="pointer-events-none text-center"
-          value="26985 Brighton Lane, Lake Forest, CA 92630."
+          defaultValue={user.address}
         />
       </div>
     </div>

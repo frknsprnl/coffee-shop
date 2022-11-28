@@ -10,7 +10,7 @@ function TextAreaField({ label = "", ...props }) {
         name=""
         id=""
         cols="30"
-        rows="6"
+        rows="4"
         required
       ></textarea>
       <label htmlFor="" className={styles.inputLabel}>
