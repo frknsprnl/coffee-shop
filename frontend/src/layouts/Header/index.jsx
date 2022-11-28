@@ -5,16 +5,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBasketShopping,
   faRightToBracket,
+  faRightFromBracket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 import { Link, useLocation } from "react-router-dom";
 import Helmet from "react-helmet";
 import { useLoginState } from "../../Recoil/User/useLoginState";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const location = useLocation();
-  const { isLoggedIn } = useLoginState();
+  const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn } = useLoginState();
+
+  const Logout = () => {
+    if (isLoggedIn === true) {
+      localStorage.removeItem("access-token");
+      setIsLoggedIn(false);
+      navigate("/");
+      console.log("You've been succesfully logged out.");
+    }
+  };
+
   return (
     <div className="flex px-2 md:px-4 w-full items-center justify-between sticky top-0 z-20 bg-black">
       <Helmet>
@@ -75,6 +88,11 @@ function Header() {
         <Link to="/basket" className="p-4 text-xl hover:text-[#cda154]">
           <FontAwesomeIcon icon={faBasketShopping} />
         </Link>
+        {isLoggedIn && (
+          <button onClick={Logout} className="p-4 text-xl hover:text-[#cda154]">
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          </button>
+        )}
       </div>
     </div>
   );
