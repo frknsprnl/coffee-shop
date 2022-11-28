@@ -21,6 +21,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  token: {
+    type: String,
+  }
 });
 
 UserSchema.pre("save", function (next) {
