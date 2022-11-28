@@ -22,8 +22,8 @@ exports.createUser = async (req, res) => {
   } catch (err) {
     let error = err;
     if (err.code === 11000) {
-      error = "Bu mail adresi sistemde kayıtlı."
-    } 
+      error = "Bu mail adresi sistemde kayıtlı.";
+    }
     res.status(400).json({
       status: "fail",
       error,
@@ -58,6 +58,28 @@ exports.loginUser = async (req, res) => {
       res
         .status(400)
         .json({ status: "fail", error: "Your e-mail is not valid." });
+    }
+  } catch (err) {
+    res.status(400).json({ status: "fail", error: err });
+  }
+};
+
+exports.getUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.user.user_id });
+
+    if (user) {
+      res.status(200).json({
+        status: "success",
+        user: {
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+          address: user.address,
+        },
+      });
+    } else {
+      res.status(400).json({ status: "fail", error: "Kullanıcı bulunamadı." });
     }
   } catch (err) {
     res.status(400).json({ status: "fail", error: err });
