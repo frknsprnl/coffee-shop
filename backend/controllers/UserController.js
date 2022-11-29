@@ -85,3 +85,46 @@ exports.getUser = async (req, res) => {
     res.status(400).json({ status: "fail", error: err });
   }
 };
+
+exports.changePassword = async (req, res) => {
+  const userId = req.user.user_id;
+  const user = await User.findOne({ _id: userId });
+  const { password, newPassword } = req.body;
+
+  if (user) {
+    bcrypt.compare(password, user.password, async (err, same) => {
+      if (same) {
+        user.password = newPassword;
+        await user.save();
+
+        res.status(200).json({
+          status: "success",
+          message: "Şifreniz başarıyla değiştirildi.",
+        });
+      } else {
+        res
+          .status(400)
+          .json({ status: "fail", error: "Mevcut şifreniz yanlış." });
+      }
+    });
+  } else {
+    res.status(400).json({ status: "fail", error: "Kullanıcı bulunamadı." });
+  }
+};
+
+exports.changeMail = async (req, res) => {
+  const user = await User.findOne({ _id: req.user.user_id });
+  const { email } = req.body;
+
+  if (user) {
+    user.email = email;
+    user.save();
+    
+    res.status(200).json({
+      status: "success",
+      message: "Mail adresiniz başarıyla değiştirildi.",
+    });
+  } else {
+    res.status(400).json({ status: "fail", error: "Kullanıcı bulunamadı." });
+  }
+};

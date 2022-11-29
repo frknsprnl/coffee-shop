@@ -31,11 +31,16 @@ const UserSchema = new Schema({
 });
 
 UserSchema.pre("save", function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+
   const user = this;
   bcrypt.hash(user.password, 10, (error, hash) => {
     user.password = hash;
     next();
   });
+
   this.name = user.name.charAt(0).toLocaleUpperCase() + user.name.slice(1).toLowerCase();
   this.surname = user.surname.charAt(0).toLocaleUpperCase() + user.surname.slice(1).toLowerCase();
 });
