@@ -1,37 +1,40 @@
 .inputField {
-    color: #fff;
-    background-color: transparent;
-    border-width: 1.6px;
-    border-radius: 0.5rem;
-    outline: none;
-    width: 100%;
-    transition-duration: 500ms;
-    padding: 0.5rem;
-    order: 2;
-  }
-  
-  .inputContainer {
-    display: flex;
-    width: 100%;
-  }
-  
-  .inputLabel {
-    font-size: 16px;
-    position: absolute;
-    transform-origin: top left;
-    transform: translate(20px, 10px) scale(1);
-    transition: all 0.3s ease-in-out;
-    color: #777;
-    user-select: none;
-    pointer-events: none;
-    order: 1;
-  }
-  
-  .inputField:valid + .inputLabel,
-  .inputField:focus + .inputLabel {
-    transform: translate(0.7rem, -0.6rem) scale(0.75);
-    color: #fff;
-    background: #000;
-    padding: 0 12px;
-  }
-  
+  color: #fff;
+  background-color: transparent;
+  border-width: 1.6px;
+  border-radius: 0.5rem;
+  outline: none;
+  width: 100%;
+  transition-duration: 500ms;
+  padding: 0.5rem 0.75rem;
+  order: 2;
+}
+
+.inputContainer {
+  display: flex;
+  width: 100%;
+}
+
+.inputLabel {
+  font-size: 16px;
+  position: absolute;
+  transform-origin: top left;
+  transform: translate(20px, 10px) scale(1);
+  transition: all 0.3s ease-in-out;
+  color: #777;
+  user-select: none;
+  pointer-events: none;
+  order: 1;
+}
+
+.inputField:valid + .inputLabel,
+.inputField:focus + .inputLabel {
+  transform: translate(0.7rem, -0.6rem) scale(0.75);
+  color: #fff;
+  background: #000;
+  padding: 0 12px;
+}
+
+.inputField:not(:focus) + .inputLabel {
+  color: #cda154;
+}

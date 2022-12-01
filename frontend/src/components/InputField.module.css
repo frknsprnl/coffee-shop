@@ -6,7 +6,7 @@
   outline: none;
   width: 100%;
   transition-duration: 500ms;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   order: 2;
 }
 
@@ -33,4 +33,13 @@
   color: #fff;
   background: #000;
   padding: 0 12px;
+}
+
+.inputField:not(:focus) + .inputLabel {
+  color: #cda154;
+}
+
+input[type="password"] {
+  font-family: Verdana;
+  letter-spacing: 0.125em;
 }

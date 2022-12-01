@@ -13,18 +13,20 @@ import { Link, useLocation } from "react-router-dom";
 import Helmet from "react-helmet";
 import { useLoginState } from "../../Recoil/User/useLoginState";
 import { useNavigate } from "react-router-dom";
+import { useToastState } from "../../Recoil/Error/useToastState";
 
 function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useLoginState();
+  const { setToastMsg } = useToastState();
 
   const Logout = () => {
     if (isLoggedIn === true) {
       localStorage.removeItem("access-token");
       setIsLoggedIn(false);
       navigate("/");
-      console.log("You've been succesfully logged out.");
+      setToastMsg({isError: false, message: "Başarıyla çıkış yaptınız."});
     }
   };
 

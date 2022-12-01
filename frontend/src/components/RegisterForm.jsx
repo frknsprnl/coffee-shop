@@ -1,3 +1,4 @@
+import { useState } from "react";
 import InputField from "./InputField";
 import Button from "./Button";
 import { useFormik } from "formik";
@@ -5,11 +6,14 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLoginState } from "../Recoil/User/useLoginState";
+import { useToastState } from "../Recoil/Error/useToastState";
 
 function RegisterForm() {
   const navigate = useNavigate();
   const { setIsLoggedIn } = useLoginState();
+  const { setToastMsg } = useToastState();
 
+  const [validateAfterSubmit, setValidateAfterSubmit] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -39,17 +43,19 @@ function RegisterForm() {
         .oneOf([Yup.ref("password"), null], "Şifreler uyuşmuyor.")
         .required("Bu alan zorunludur."),
     }),
+    validateOnChange: validateAfterSubmit,
     onSubmit: async (values, { resetForm }) => {
       await axios
         .post("http://localhost:3000/user/signup", values)
         .then((resp) => {
-          localStorage.setItem("access-token", resp.data.user.token);
+          localStorage.setItem("access-token", resp.data.token);
           resetForm();
           setIsLoggedIn(true);
           navigate("/user");
+          setToastMsg({ isError: false, message: resp.data.message });
         })
         .catch((err) => {
-          console.log(err.response.data.error);
+          setToastMsg({isError: true, message: err.response.data.message});
         });
     },
   });
@@ -57,11 +63,13 @@ function RegisterForm() {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className="flex flex-col gap-3"
+      className={`flex flex-col ${
+        Object.keys(formik.errors).length > 0 ? "gap-2.5" : "gap-4"
+      }`}
       autoComplete="off"
       noValidate
     >
-      {formik.touched.name && formik.errors.name ? (
+      {formik.errors.name ? (
         <small className="text-xs text-red-500">{formik.errors.name}</small>
       ) : null}
       <InputField
@@ -69,14 +77,13 @@ function RegisterForm() {
         name="name"
         value={formik.values.name}
         onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
         className={`${
-          formik.touched.name && formik.errors.name
+          formik.errors.name
             ? "border-red-500 hover:border-red-500 focus:border-red-500"
             : ""
         }`}
       />
-      {formik.touched.surname && formik.errors.surname ? (
+      {formik.errors.surname ? (
         <small className="text-xs text-red-500">{formik.errors.surname}</small>
       ) : null}
       <InputField
@@ -84,14 +91,13 @@ function RegisterForm() {
         name="surname"
         value={formik.values.surname}
         onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
         className={`${
-          formik.touched.surname && formik.errors.surname
+          formik.errors.surname
             ? "border-red-500 hover:border-red-500 focus:border-red-500"
             : ""
         }`}
       />
-      {formik.touched.email && formik.errors.email ? (
+      {formik.errors.email ? (
         <small className="text-xs text-red-500">{formik.errors.email}</small>
       ) : null}
       <InputField
@@ -99,14 +105,13 @@ function RegisterForm() {
         name="email"
         value={formik.values.email}
         onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
         className={`${
-          formik.touched.email && formik.errors.email
+          formik.errors.email
             ? "border-red-500 hover:border-red-500 focus:border-red-500"
             : ""
         }`}
       />
-      {formik.touched.password && formik.errors.password ? (
+      {formik.errors.password ? (
         <small className="text-xs text-red-500">{formik.errors.password}</small>
       ) : null}
       <InputField
@@ -115,33 +120,31 @@ function RegisterForm() {
         value={formik.values.password}
         type="password"
         onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
         className={`${
-          formik.touched.password && formik.errors.password
+          formik.errors.password
             ? "border-red-500 hover:border-red-500 focus:border-red-500"
             : ""
         }`}
       />
-      {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+      {formik.errors.confirmPassword ? (
         <small className="text-xs text-red-500">
           {formik.errors.confirmPassword}
         </small>
       ) : null}
       <InputField
-        label="Şifre Onay"
+        label="Şifre Tekrar"
         name="confirmPassword"
         value={formik.values.confirmPassword}
         type="password"
         onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
         className={`${
-          formik.touched.confirmPassword && formik.errors.confirmPassword
+          formik.errors.confirmPassword
             ? "border-red-500 hover:border-red-500 focus:border-red-500"
             : ""
         }`}
       />
       <div className="w-full">
-        <Button name="Kayıt Ol" />
+        <Button name="Kayıt Ol" onClick={() => {setValidateAfterSubmit(true)}} />
       </div>
     </form>
   );
