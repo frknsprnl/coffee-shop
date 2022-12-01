@@ -17,7 +17,8 @@ exports.createUser = async (req, res) => {
 
     res.status(201).json({
       status: "success",
-      user,
+      message: "Kaydınız başarıyla oluşturuldu.",
+      token: user.token,
     });
   } catch (err) {
     let error = err;
@@ -26,7 +27,7 @@ exports.createUser = async (req, res) => {
     }
     res.status(400).json({
       status: "fail",
-      error,
+      message: error,
     });
   }
 };
@@ -49,18 +50,16 @@ exports.loginUser = async (req, res) => {
 
           res.status(200).json({ status: "success", user });
         } else {
-          res
-            .status(400)
-            .json({ status: "fail", error: "Your password is not valid." });
+          res.status(400).json({ status: "fail", message: "Geçersiz şifre." });
         }
       });
     } else {
       res
         .status(400)
-        .json({ status: "fail", error: "Your e-mail is not valid." });
+        .json({ status: "fail", message: "Geçersiz mail adresi." });
     }
   } catch (err) {
-    res.status(400).json({ status: "fail", error: err });
+    res.status(400).json({ status: "fail", message: err });
   }
 };
 
@@ -79,10 +78,12 @@ exports.getUser = async (req, res) => {
         },
       });
     } else {
-      res.status(400).json({ status: "fail", error: "Kullanıcı bulunamadı." });
+      res
+        .status(400)
+        .json({ status: "fail", message: "Kullanıcı bulunamadı." });
     }
   } catch (err) {
-    res.status(400).json({ status: "fail", error: err });
+    res.status(400).json({ status: "fail", message: err });
   }
 };
 
@@ -94,21 +95,30 @@ exports.changePassword = async (req, res) => {
   if (user) {
     bcrypt.compare(password, user.password, async (err, same) => {
       if (same) {
-        user.password = newPassword;
-        await user.save();
+        bcrypt.compare(newPassword, user.password, async (err, same) => {
+          if (same) {
+            res.status(400).json({
+              status: "fail",
+              message: "Bu şifreyi kullanıyorsunuz.",
+            });
+          } else {
+            user.password = newPassword;
+            await user.save();
 
-        res.status(200).json({
-          status: "success",
-          message: "Şifreniz başarıyla değiştirildi.",
+            res.status(200).json({
+              status: "success",
+              message: "Şifreniz başarıyla değiştirildi.",
+            });
+          }
         });
       } else {
         res
           .status(400)
-          .json({ status: "fail", error: "Mevcut şifreniz yanlış." });
+          .json({ status: "fail", message: "Mevcut şifreniz yanlış." });
       }
     });
   } else {
-    res.status(400).json({ status: "fail", error: "Kullanıcı bulunamadı." });
+    res.status(400).json({ status: "fail", message: "Kullanıcı bulunamadı." });
   }
 };
 
@@ -116,15 +126,31 @@ exports.changeMail = async (req, res) => {
   const user = await User.findOne({ _id: req.user.user_id });
   const { email } = req.body;
 
-  if (user) {
-    user.email = email;
-    user.save();
-    
-    res.status(200).json({
-      status: "success",
-      message: "Mail adresiniz başarıyla değiştirildi.",
-    });
-  } else {
-    res.status(400).json({ status: "fail", error: "Kullanıcı bulunamadı." });
-  }
+  await User.findOne({ email: email }).then((mailExists) => {
+    if (user.email === email) {
+      res.status(400).json({
+        status: "fail",
+        message: "Bu mail adresini kullanıyorsunuz.",
+      });
+    } else if (mailExists) {
+      res.status(400).json({
+        status: "fail",
+        message: "Bu mail adresi sistemde kayıtlı.",
+      });
+    } else {
+      if (user) {
+        user.email = email;
+        user.save();
+
+        res.status(200).json({
+          status: "success",
+          message: "E-mail başarıyla değiştirildi.",
+        });
+      } else {
+        res
+          .status(400)
+          .json({ status: "fail", message: "Kullanıcı bulunamadı." });
+      }
+    }
+  });
 };
