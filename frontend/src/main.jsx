@@ -19,6 +19,7 @@ import Profile from "./pages/User/components/Profile/Profile";
 import Order from "./pages/User/components/Order/Order";
 import Password from "./pages/User/components/Edit/Password";
 import Email from "./pages/User/components/Edit/Email";
+import Address from './pages/User/components/Edit/Address';
 import Edit from "./pages/User/components/Edit/Edit";
 import Error from "./pages/Error";
 import PrivateRoute from "./routes/PrivateRoutes";
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
             children: [
               { path: "password", element: <Password /> },
               { path: "email", element: <Email /> },
+              { path: "address", element: <Address /> },
             ],
           },
         ],

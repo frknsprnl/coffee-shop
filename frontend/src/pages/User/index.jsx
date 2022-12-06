@@ -7,6 +7,7 @@ import Order from "./components/Order/Order";
 import Edit from "./components/Edit/Edit";
 import Password from "./components/Edit/Password";
 import Email from "./components/Edit/Email";
+import Address from './components/Edit/Address';
 import { useUserState } from "../../Recoil/User/userState";
 import { useLoginState } from "../../Recoil/User/useLoginState";
 import { useToastState } from "../../Recoil/Error/useToastState";
@@ -54,6 +55,7 @@ function User() {
           {location.pathname === "/user/edit" && <Edit />}
           {location.pathname === "/user/edit/password" && <Password />}
           {location.pathname === "/user/edit/email" && <Email />}
+          {location.pathname === "/user/edit/address" && <Address />}
         </div>
       </div>
     </MainLayout>

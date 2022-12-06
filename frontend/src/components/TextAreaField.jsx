@@ -7,8 +7,6 @@ function TextAreaField({ label = "", ...props }) {
       <textarea
         {...props}
         className={`${styles.inputField} hover:border-[#cda154] focus:border-[#cda154] ${props.className}`}
-        name=""
-        id=""
         cols="30"
         rows="4"
         required
