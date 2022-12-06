@@ -154,3 +154,33 @@ exports.changeMail = async (req, res) => {
     }
   });
 };
+
+exports.setAddress = async (req, res) => {
+  const user = await User.findOne({ _id: req.user.user_id });
+  const { address } = req.body;
+
+  if (user) {
+    if (user.address === address) {
+      res.status(400).json({
+        status: "fail",
+        message: "Bu adresi kullanıyorsunuz.",
+      });
+    } else {
+      if (!user.address) {
+        await user.updateOne({ address: address });
+        res.status(200).json({
+          status: "success",
+          message: "Adres başarıyla eklendi.",
+        });
+      } else {
+        await user.updateOne({ address: address });
+        res.status(200).json({
+          status: "success",
+          message: "Adres başarıyla değiştirildi.",
+        });
+      }
+    }
+  } else {
+    res.status(400).json({ status: "fail", message: "Kullanıcı bulunamadı." });
+  }
+};
