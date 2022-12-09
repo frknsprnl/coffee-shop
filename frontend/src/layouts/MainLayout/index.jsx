@@ -52,7 +52,7 @@ function MainLayout({ children }) {
         toastStyle={{ color: "#000", top: "5rem" }}
       />
       {children}
-      ({showFooter && <Footer />}
+      {showFooter && <Footer />}
     </>
   );
 }
