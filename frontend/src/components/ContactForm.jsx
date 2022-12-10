@@ -6,9 +6,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useToastState } from "../Recoil/Error/useToastState";
+import { useLoadingState } from "../Recoil/Loading/useLoadingState";
 
 function ContactForm() {
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
+
   const [validateAfterSubmit, setValidateAfterSubmit] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -33,6 +36,7 @@ function ContactForm() {
     }),
     validateOnChange: validateAfterSubmit,
     onSubmit: async (values, { resetForm }) => {
+      setIsLoading(true);
       await axios
         .post("http://localhost:3000/mail/sendmail", values)
         .then((resp) => {
@@ -43,6 +47,8 @@ function ContactForm() {
         .catch((err) => {
           console.log(err)
           setToastMsg({ isError: true, message: err.response.data.message });
+        }).finally(() => {
+          setIsLoading(false);
         })
     },
   });

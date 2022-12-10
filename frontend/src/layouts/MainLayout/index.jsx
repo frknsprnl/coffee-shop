@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useToastState } from "../../Recoil/Error/useToastState";
+import { useLoadingState } from "../../Recoil/Loading/useLoadingState";
+import Modal from "../../components/Modal";
 
 function MainLayout({ children }) {
   const location = useLocation();
   const { toastMsg, setToastMsg } = useToastState();
+  const { isLoading } = useLoadingState();
   const [showFooter, setShowFooter] = useState(true);
 
   useEffect(() => {
@@ -35,14 +38,15 @@ function MainLayout({ children }) {
 
   useEffect(() => {
     const pagesWithoutFooter = ["user", "basket", "login", "register"];
-    
-    if (location.pathname.split('/').some(p => pagesWithoutFooter.includes(p))) {
+
+    if (
+      location.pathname.split("/").some((p) => pagesWithoutFooter.includes(p))
+    ) {
       setShowFooter(false);
     } else {
       setShowFooter(true);
     }
-  }, [location])
-  
+  }, [location]);
 
   return (
     <>
@@ -51,6 +55,7 @@ function MainLayout({ children }) {
         autoClose={2000}
         toastStyle={{ color: "#000", top: "5rem" }}
       />
+      {isLoading && <Modal />}
       {children}
       {showFooter && <Footer />}
     </>
