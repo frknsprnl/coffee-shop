@@ -12,22 +12,25 @@ function Contact() {
             Kahveler, Etkinlikler ve Haberler Hakkında Bilgi Almak için Bizimle
             İletişime Geçebilirsiniz.
           </span>
+
+          <div className="flex flex-col text-sm md:text-base">
+            <span className="mt-4">
+              <span className="text-[#cda154]">Email: </span>&nbsp;
+              thecoffeeshop@gmail.com
+            </span>
+            <span className="mt-2">
+              <span className="text-[#cda154]">Telefon: </span>&nbsp; 0850 888
+              2626
+            </span>
+          </div>
           <h1 className="text-lg md:text-2xl mt-4">
             The Coffee Shop <span className="text-[#cda154]">nerede?</span>
           </h1>
           <span className="mt-3">
-            <address className="text-sm md:text-base">
+            <address className="text-sm md:text-base text-center md:text-start">
               Sazova, Ulusal Egemenlik Blv., Masal Şatosu 26150 Tepebaşı /
               Eskişehir
             </address>
-          </span>
-          <span className="mt-4 mr-auto">
-            <span className="text-[#cda154]">Email: </span>&nbsp;
-            thecoffeeshop@gmail.com
-          </span>
-          <span className="mt-2 mr-auto">
-            <span className="text-[#cda154]">Telefon: </span>&nbsp; 0850 888
-            2626
           </span>
           <ContactForm />
         </div>
