@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useToastState } from "../../Recoil/Error/useToastState";
 import { Helmet } from "react-helmet";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import coffeeImg from "../../assets/blog-image.jpg";
 
 function Article() {
@@ -30,10 +32,16 @@ function Article() {
       <Helmet>
         <title>{article.title + " | The Coffee Shop"}</title>
       </Helmet>
+      <Link to="/blog" className="fixed top-28 left-12 lg:left-28 hidden md:flex">
+        <FontAwesomeIcon
+          icon={faArrowLeftLong}
+          className="text-4xl text-white hover:text-[#cda154]"
+        />
+      </Link>
       <div className="py-4 px-2 md:px-8 flex flex-col">
         <img
           src={coffeeImg}
-          className="w-full md:w-1/2 rounded-xl mx-auto grayscale-[40%] hover:grayscale-0 duration-500 bg-contain h-56 md:h-80"
+          className="w-11/12 md:w-3/4 lg:w-1/2 rounded-xl mx-auto grayscale-[40%] hover:grayscale-0 duration-500 bg-contain h-56 md:h-80"
           alt=""
         />
         <h1 className="text-white text-3xl text-center pt-8 pb-4">

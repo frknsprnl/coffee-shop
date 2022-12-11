@@ -44,7 +44,7 @@ function LoginForm() {
           navigate("/user");
         })
         .catch((err) => {
-          setToastMsg({ isError: true, message: err.response.data.error });
+          setToastMsg({ isError: true, message: err.response.data.message });
         });
     },
   });

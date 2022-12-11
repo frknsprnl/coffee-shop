@@ -1,6 +1,6 @@
 import React from "react";
 import textLogo from "../../assets/coffee-shop-text-logo.png";
-import logo from "../../assets/coffee-shop-logo.png";
+import logo from '../../assets/coffee-shop-logo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBasketShopping,
@@ -8,12 +8,12 @@ import {
   faRightFromBracket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import "./style.css";
 import { Link, useLocation } from "react-router-dom";
 import Helmet from "react-helmet";
 import { useLoginState } from "../../Recoil/User/useLoginState";
 import { useNavigate } from "react-router-dom";
 import { useToastState } from "../../Recoil/Error/useToastState";
+import Navigation from "../../components/Navigation";
 
 function Header() {
   const location = useLocation();
@@ -26,12 +26,12 @@ function Header() {
       localStorage.removeItem("access-token");
       setIsLoggedIn(false);
       navigate("/");
-      setToastMsg({isError: false, message: "Başarıyla çıkış yaptınız."});
+      setToastMsg({ isError: false, message: "Başarıyla çıkış yaptınız." });
     }
   };
 
   return (
-    <div className="flex px-2 md:px-4 w-full items-center justify-between sticky top-0 z-20 bg-black">
+    <div className="flex px-2 md:px-4 py-3 md:py-0 w-full items-center justify-between sticky top-0 z-20 bg-black">
       <Helmet>
         <title>
           {location.pathname === "/"
@@ -58,24 +58,12 @@ function Header() {
         <img
           src={logo}
           alt=""
-          className="max-h-24 lg:hidden select-none"
+          className="block md:hidden max-h-16 select-none"
           draggable="false"
         />
       </Link>
-      <div className="text-white text-lg font-semibold hidden md:flex flex-1 whitespace-nowrap">
-        <Link to="/shop" className="p-5 lg:p-7 nav-item">
-          Dükkan
-        </Link>
-        <Link to="/about" className="p-5 lg:p-7 nav-item">
-          Hakkımızda
-        </Link>
-        <Link to="/blog" className="p-5 lg:p-7 nav-item">
-          Blog
-        </Link>
-        <Link to="/contact" className="p-5 lg:p-7 nav-item">
-          İletişim
-        </Link>
-      </div>
+
+      <Navigation />
       <div className="flex text-white mr-2 gap-2">
         {!isLoggedIn && (
           <Link to="/login" className="p-4 text-xl hover:text-[#cda154]">
