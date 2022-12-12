@@ -1,14 +1,22 @@
-const { count } = require("../models/Article");
 const Article = require("../models/Article");
 
 exports.createArticle = async (req, res) => {
   try {
-    const article = await Article.create(req.body);
+    const { title, author, body } = req.body;
+    const image = req.file.filename;
+    const article = await Article.create({
+      title: title,
+      author: author,
+      body: body,
+      image: image,
+    });
     res
       .status(201)
       .json({ status: "success", message: "İçerik oluşturuldu.", article });
   } catch (err) {
-    res.status(400).json({ status: "fail", message: "İçerik oluşturulamadı." });
+    res
+      .status(400)
+      .json({ status: "fail", message: "İçerik oluşturulamadı.", error: err });
   }
 };
 
