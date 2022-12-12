@@ -6,7 +6,6 @@ import { useToastState } from "../../Recoil/Error/useToastState";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import coffeeImg from "../../assets/blog-image.jpg";
 
 function Article() {
   const { setToastMsg } = useToastState();
@@ -40,7 +39,7 @@ function Article() {
       </Link>
       <div className="py-4 px-2 md:px-8 flex flex-col">
         <img
-          src={coffeeImg}
+          src={`http://localhost:3000/blog/${article.image}`}
           className="w-11/12 md:w-3/4 lg:w-1/2 rounded-xl mx-auto grayscale-[40%] hover:grayscale-0 duration-500 bg-contain h-56 md:h-80"
           alt=""
         />

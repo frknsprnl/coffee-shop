@@ -42,6 +42,7 @@ function Blog() {
               articleId={blog._id}
               title={blog.title}
               body={blog.body}
+              image={blog.image}
             />
           );
         })}
