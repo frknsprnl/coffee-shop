@@ -5,6 +5,8 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (req.url == "/createarticle") {
       cb(null, "uploads/blog/");
+    } else if (req.url == "/createproduct") {
+      cb(null, "uploads/product/");
     } else {
       cb(null, "uploads/");
     }

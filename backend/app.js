@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userRoute = require("./routes/userRoute");
 const articleRoute = require("./routes/articleRoute");
 const mailRoute = require('./routes/mailRoute');
+const productRoute = require('./routes/productRoute');
 const cors = require("cors");
 require("dotenv").config();
 
@@ -24,6 +25,7 @@ app.use(express.static('uploads'));
 app.use("/user", userRoute);
 app.use("/blog", articleRoute);
 app.use('/mail', mailRoute);
+app.use('/product', productRoute);
 
 const PORT = 3000;
 
