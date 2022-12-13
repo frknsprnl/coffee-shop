@@ -14,7 +14,7 @@ function ShopItem({button = true, ...props }) {
       </div>
       {button === true && (
         <div className="w-full">
-          <button className="py-4 text-white w-full block border-t border-white hover:bg-[#2b2627] font-medium duration-500">
+          <button className="py-4 text-white text-sm md:text-base w-full block border-t hover:border-t-[#cda154] border-white hover:bg-[#cda154] hover:text-black font-medium duration-500">
             Sepete ekle
           </button>
         </div>
