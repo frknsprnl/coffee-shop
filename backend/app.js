@@ -4,7 +4,9 @@ const userRoute = require("./routes/userRoute");
 const articleRoute = require("./routes/articleRoute");
 const mailRoute = require('./routes/mailRoute');
 const productRoute = require('./routes/productRoute');
+const cartRoute = require('./routes/cartRoute');
 const cors = require("cors");
+
 require("dotenv").config();
 
 const app = express();
@@ -26,6 +28,7 @@ app.use("/user", userRoute);
 app.use("/blog", articleRoute);
 app.use('/mail', mailRoute);
 app.use('/product', productRoute);
+app.use('/cart', cartRoute);
 
 const PORT = 3000;
 
