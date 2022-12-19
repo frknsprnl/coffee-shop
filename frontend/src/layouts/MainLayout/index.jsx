@@ -27,6 +27,8 @@ function MainLayout({ children }) {
 
     const defaultValues = { isError: false, message: "" };
 
+    toast.clearWaitingQueue();
+
     if (toastMsg.isError === true) {
       notifyError(toastMsg.message);
       setToastMsg(defaultValues);
@@ -52,8 +54,16 @@ function MainLayout({ children }) {
     <>
       <Header />
       <ToastContainer
-        autoClose={2000}
-        toastStyle={{ color: "#000", top: "5rem" }}
+        autoClose={2500}
+        toastStyle={{
+          color: "#fff",
+          backgroundColor: "#000",
+          border: "1.6px solid",
+          borderRadius: ".75rem",
+          top: "5rem",
+        }}
+        limit={2}
+        hideProgressBar={true}
       />
       {isLoading && <Modal />}
       {children}
