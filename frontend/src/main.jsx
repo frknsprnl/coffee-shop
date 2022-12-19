@@ -53,10 +53,6 @@ const router = createBrowserRouter([
     element: <Contact />,
   },
   {
-    path: "/basket",
-    element: <Basket />,
-  },
-  {
     path: "/",
     element: <LoggedInPrivateRoute />,
     children: [
@@ -90,6 +86,10 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: "/basket",
+        element: <Basket />,
       },
     ],
   },

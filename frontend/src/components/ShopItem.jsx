@@ -1,20 +1,38 @@
 import React from "react";
+import CartIcon from "./CartIcon";
 
-function ShopItem({button = true, ...props }) {
+function ShopItem({ button = true, isInCart = false, ...props }) {
   return (
     <div
-      className={`${props.className} border-[1.6px] border-white rounded-xl overflow-hidden flex flex-col items-center`}
+      className={`${props.className} border-[1.6px] border-white rounded-xl overflow-hidden flex flex-col items-center relative`}
     >
-      <img src={props.img} alt="" className={`h-24 w-24 md:h-32 md:w-32 mt-6`} />
+      {isInCart && (
+        <div className="absolute top-0 right-0 pointer-events-none">
+          <CartIcon
+            quantity={props.quantity}
+            bVisible={true}
+          />
+        </div>
+      )}
+      <img
+        src={props.img}
+        alt=""
+        className={`h-24 w-24 md:h-32 md:w-32 mt-6`}
+      />
       <div className="flex flex-col items-center justify-evenly h-full">
-        <span className="text-sm md:text-lg text-white font-semibold">{props.name}</span>
+        <span className="text-sm md:text-lg text-white font-semibold">
+          {props.name}
+        </span>
         <span className="text-xs md:text-base text-white font-medium">
           {props.price} TL
         </span>
       </div>
       {button === true && (
         <div className="w-full">
-          <button className="py-4 text-white text-sm md:text-base w-full block border-t hover:border-t-[#cda154] border-white hover:bg-[#cda154] hover:text-black font-medium duration-500">
+          <button
+            className="py-4 text-white text-sm md:text-base w-full block border-t hover:border-t-[#cda154] border-white hover:bg-[#cda154] hover:text-black font-medium duration-500"
+            onClick={props.onClick}
+          >
             Sepete ekle
           </button>
         </div>
