@@ -6,7 +6,6 @@ exports.addToCart = async (req, res) => {
     const { product_id, quantity } = req.body;
 
     const cart = await Cart.findOne({ user: user_id });
-
     let productIndex = -1;
     if (cart) {
       productIndex = cart.items.findIndex(
@@ -15,10 +14,10 @@ exports.addToCart = async (req, res) => {
     }
 
     if (productIndex > -1) {
-      cart.items[productIndex].quantity = quantity;
+      cart.items[productIndex].quantity += quantity;
       await cart.save();
     } else {
-      if (!cart) {
+      if (cart === null) {
         await Cart.create({
           user: user_id,
           items: [{ product: product_id, quantity }],
@@ -28,7 +27,6 @@ exports.addToCart = async (req, res) => {
         await cart.save();
       }
     }
-
     res
       .status(201)
       .json({ status: "success", message: "Ürün sepete eklendi." });
@@ -74,6 +72,8 @@ exports.getCart = async (req, res) => {
   if (cart) {
     res.status(200).json({ status: "success", cart: cart.items });
   } else {
-    res.status(400).json({ status: "fail", message: "Sepet bulunamadı." });
+    res
+      .status(400)
+      .json({ status: "fail", message: "Sepet bulunamadı.", err: "no-cart" });
   }
 };
