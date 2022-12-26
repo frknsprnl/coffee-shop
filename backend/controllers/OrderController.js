@@ -28,8 +28,9 @@ exports.setOrder = async (req, res) => {
 
 exports.getOrders = async (req, res) => {
   const { user_id } = req.user;
-  const orders = await Order.find({ user: user_id });
-
+  const orders = await Order.find({ user: user_id })
+    .populate("orders.products.product")
+    
   if (orders) {
     res.status(200).json({ status: "success", orders });
   } else {

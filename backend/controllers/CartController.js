@@ -77,3 +77,20 @@ exports.getCart = async (req, res) => {
       .json({ status: "fail", message: "Sepet bulunamadı.", err: "no-cart" });
   }
 };
+
+exports.removeCart = async (req, res) => {
+  try {
+    const { user_id } = req.user;
+    const cart = await Cart.findOneAndRemove({ user: user_id });
+
+    if (cart) {
+      res.status(200).json({ status: "success", message: "Sepet silindi." });
+    } else {
+      res.status(400).json({ status: "fail", message: "Sepet bulunamadı." });
+    }
+  } catch (err) {
+    res
+      .status(400)
+      .json({ status: "fail", message: "Bir hata oluştu.", error: err });
+  }
+};
