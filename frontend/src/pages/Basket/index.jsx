@@ -8,6 +8,7 @@ import { useCartState } from "../../Recoil/Cart/useCartState";
 import { useToastState } from "../../Recoil/Error/useToastState";
 import Cart from "../../components/Cart";
 import Payment from "../../components/Payment";
+import { useNavigate } from "react-router-dom";
 
 function Basket() {
   const { cartProducts, setCartProducts } = useCartState();
@@ -19,6 +20,14 @@ function Basket() {
   const [isPayment, setIsPayment] = useState(
     JSON.parse(localStorage.getItem("isPayment")) || false
   );
+  const [formData, setFormData] = useState({
+    cardNum: "",
+    cardName: "",
+    expiryMonth: "",
+    expiryYear: "",
+    cvv: "",
+  });
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCart();
@@ -36,7 +45,7 @@ function Basket() {
         setCartProducts(resp.data.cart);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        // console.log(err.response.data);
       });
   };
 
@@ -85,7 +94,7 @@ function Basket() {
           await getCart();
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
   };
@@ -106,7 +115,7 @@ function Basket() {
         getCart();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -115,6 +124,41 @@ function Basket() {
     localStorage.setItem("isPayment", bool);
   };
 
+  const removeCart = async () => {
+    setCartProducts([]);
+    await axios
+      .post("http://localhost:3000/cart/removecart", "", {
+        headers: {
+          "x-access-token": `${localStorage.getItem("access-token")}`,
+        },
+      })
+      .then((resp) => {
+        // console.log(resp);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const completePayment = async (products, total) => {
+    await axios
+      .post(
+        "http://localhost:3000/orders/setorder",
+        { products, total },
+        {
+          headers: {
+            "x-access-token": `${localStorage.getItem("access-token")}`,
+          },
+        }
+      )
+      .then(async (resp) => {
+        localStorage.setItem("isPayment", false);
+        await removeCart();
+        navigate("/user/orders");
+        setToastMsg({ isError: false, message: resp.data.message });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <MainLayout>
       <div className="flex flex-col md:flex-row py-8 px-4 md:px-12 gap-4 justify-center">
@@ -138,7 +182,9 @@ function Basket() {
               changeValue={changeValue}
             />
           )}
-          {isPayment === true && <Payment />}
+          {isPayment === true && (
+            <Payment formData={formData} setFormData={setFormData} />
+          )}
         </div>
         <div className="border-[1.6px] h-64 p-6 rounded-xl w-full md:w-80 lg:w-96 text-white flex flex-col whitespace-nowrap">
           <h1 className="text-lg md:text-xl font-semibold">Sipariş Özeti</h1>
@@ -175,10 +221,34 @@ function Basket() {
             {isPayment === false && (
               <Button
                 name="Sepeti Onayla"
-                onClick={() => isPaymentPage(true)}
+                onClick={() => {
+                  cartProducts.length !== 0
+                    ? isPaymentPage(true)
+                    : (isPaymentPage(false),
+                      setToastMsg({
+                        isError: true,
+                        message: "Satın almak için ürün ekleyin.",
+                      }));
+                }}
               />
             )}
-            {isPayment === true && <Button name="Sepeti Tamamla" />}
+            {isPayment === true && (
+              <Button
+                name="Sepeti Tamamla"
+                onClick={
+                  !Object.values(formData).some((value) => value === "")
+                    ? () =>
+                        completePayment(
+                          cartProducts.map((item) => ({
+                            product: item.product._id,
+                            quantity: item.quantity,
+                          })),
+                          total
+                        )
+                    : () => {}
+                }
+              />
+            )}
           </div>
         </div>
       </div>

@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputField from "./InputField";
 
-function Payment() {
-  const [cardNumInput, setCardNumInput] = useState("");
+function Payment({formData, setFormData}) {
   const [cardNumOutput, setCardNumOutput] = useState("");
-  const [cardName, setCardName] = useState("");
   const [cardNameOutput, setCardNameOutput] = useState("");
-  const [expiryMonth, setExpiryMonth] = useState("");
-  const [expiryYear, setExpiryYear] = useState("");
-  const [cvv, setCvv] = useState("");
   const [isCvvFocused, setIsCvvFocused] = useState(false);
+  
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
+  const updateFormData = (key, value) => {
+    setFormData({ ...formData, [key]: value });
+  };
 
   const handleCardNameChange = (e) => {
     let val = e.target.value;
+
     if (/^\D{0,20}$/.test(val)) {
-      setCardName(val);
+      updateFormData("cardName", val);
       setCardNameOutput(val.toLocaleUpperCase());
     }
   };
@@ -27,7 +32,7 @@ function Payment() {
     let val = e.target.value;
     // only allow numeric inputs & max length is 16 chars.
     if (/^\d{0,16}$/.test(val)) {
-      setCardNumInput(val);
+      updateFormData("cardNum", val);
       setCardNumOutput(addSpaces(val));
     }
   };
@@ -35,16 +40,26 @@ function Payment() {
   const handleExpiryMonth = (e) => {
     let val = e.target.value;
 
-    if (/^\d{0,2}$/.test(val)) {
-      setExpiryMonth(e.target.value);
+    if (/^(0?[0-9]|1[0-2])?$/.test(val)) {
+      if (val === "00") {
+        updateFormData("expiryMonth", "01");
+      } else if (val > 1 && val.length === 1) {
+        updateFormData("expiryMonth", "0" + val);
+      } else {
+        updateFormData("expiryMonth", val);
+      }
     }
   };
 
   const handleExpiryYear = (e) => {
     let val = e.target.value;
 
-    if (/^\d{0,4}$/.test(val)) {
-      setExpiryYear(e.target.value);
+    if (/^\d{0,2}$/.test(val)) {
+      if (val < 22 && val.length === 2) {
+        updateFormData("expiryYear", "");
+      } else {
+        updateFormData("expiryYear", val);
+      }
     }
   };
 
@@ -52,14 +67,16 @@ function Payment() {
     let val = e.target.value;
 
     if (/^\d{0,3}$/.test(val)) {
-      setCvv(e.target.value);
+      updateFormData("cvv", val);
     }
   };
 
   return (
     <>
       <div className="h-[420px] w-full px-5">
-        <h1 className="text-lg md:text-xl font-semibold text-center pb-4">Ödeme</h1>
+        <h1 className="text-lg md:text-xl font-semibold text-center pb-4">
+          Ödeme
+        </h1>
         <div className="flex flex-col">
           <div
             className={`border-[1.6px] rounded-xl w-64 h-36 m-auto relative overflow-hidden ${
@@ -72,44 +89,49 @@ function Payment() {
                   {cardNumOutput}
                 </span>
                 <span className="absolute bottom-10 left-12">
-                  {`${expiryMonth} ${
-                    expiryMonth.length == 2 || expiryYear.length == 4 ? "/" : ""
-                  } ${expiryYear.length === 4 ? expiryYear.substring(2) : ""}`}
+                  {`${formData.expiryMonth} ${
+                    formData.expiryMonth.length == 2 ||
+                    formData.expiryYear.length == 2
+                      ? "/"
+                      : ""
+                  } ${formData.expiryYear}`}
                 </span>
-                <span className="absolute bottom-2 left-3">{cardNameOutput}</span>
+                <span className="absolute bottom-2 left-3 text-sm">
+                  {cardNameOutput}
+                </span>
               </>
             )}
             {isCvvFocused === true && (
               <span className="absolute top-10 left-12 -scale-x-100">
-                {cvv}
+                {formData.cvv}
               </span>
             )}
           </div>
           <div className="flex flex-col gap-3 md:gap-5 mt-5">
             <InputField
               label="Kart Sahibi"
-              value={cardName}
+              value={formData.cardName}
               onChange={handleCardNameChange}
             />
             <InputField
               label="Kart No."
-              value={cardNumInput}
+              value={formData.cardNum}
               onChange={handleCardNumChange}
             />
             <div className="w-11/12 md:w-3/4 flex gap-3">
               <InputField
                 label="Ay"
-                value={expiryMonth}
+                value={formData.expiryMonth}
                 onChange={handleExpiryMonth}
               />
               <InputField
                 label="Yıl"
-                value={expiryYear}
+                value={formData.expiryYear}
                 onChange={handleExpiryYear}
               />
               <InputField
                 label="CVV"
-                value={cvv}
+                value={formData.cvv}
                 onChange={handleCVV}
                 onFocus={() => setIsCvvFocused(true)}
                 onBlur={() => setIsCvvFocused(false)}

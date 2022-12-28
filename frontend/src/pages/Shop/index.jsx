@@ -39,7 +39,7 @@ function Shop() {
         setCartProducts(resp.data.cart);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        // console.log(err.response.data);
       });
   };
 

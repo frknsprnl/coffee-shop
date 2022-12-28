@@ -25,7 +25,7 @@ function Header() {
 
   const Logout = () => {
     if (isLoggedIn === true) {
-      localStorage.removeItem("access-token");
+      localStorage.clear();
       setIsLoggedIn(false);
       navigate("/");
       setToastMsg({ isError: false, message: "Başarıyla çıkış yaptınız." });
