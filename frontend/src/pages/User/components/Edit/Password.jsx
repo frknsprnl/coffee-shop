@@ -66,7 +66,7 @@ function Password() {
         onSubmit={formik.handleSubmit}
         noValidate
         autoComplete="off"
-        className="flex flex-col gap-5 w-4/5 lg:w-3/5"
+        className="flex flex-col gap-5 w-full md:w-4/5"
       >
         <div
           className={`flex flex-col ${

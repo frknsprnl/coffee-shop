@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import * as Yup from 'yup';
 
 function Order() {
   const [orders, setOrders] = useState([]);
@@ -18,7 +17,7 @@ function Order() {
         })
         .then((resp) => {
           // console.log(resp.data.orders[0].orders);
-          setOrders((resp.data.orders[0].orders).reverse());
+          setOrders(resp.data.orders[0].orders.reverse());
         })
         .catch((err) => {
           // console.log(err);
@@ -34,26 +33,32 @@ function Order() {
           className="text-3xl hover:text-[#cda154]"
         />
       </Link>
-      <div className="flex flex-col gap-3 w-full px-2 lg:px-4 overflow-auto">
+      <div className="flex flex-col gap-3 w-full md:w-4/5 overflow-auto">
         {orders.length === 0 && (
           <h1 className="text-center">Henüz hiç siparişiniz yok.</h1>
         )}
         {orders.map((order) => (
-          <div
-            className="flex justify-between items-center px-4 py-3 rounded-xl border-[1.6px] hover:border-[#cda154]"
-            key={order._id}
-          >
-            <img src={`http://localhost:3000/product/${order.products[0].product.productImage}`} alt="" className="w-10 md:w-12" />
-            <span className="text-xs">( {order.products.length} )</span>
-            <div className="flex flex-col flex-1 text-white justify-center items-center">
-              <span className="text-sm font-normal">
-                {new Date(Date.parse(order.date)).toLocaleDateString()}
-              </span>
+          <Link to={`orders/${order._id}`} key={order._id}>
+            <div
+              className="flex justify-between items-center px-4 py-3 rounded-xl border-[1.6px] hover:border-[#cda154]" 
+            >
+              <img
+                src={`http://localhost:3000/product/${order.products[0].product.productImage}`}
+                alt=""
+                className="w-10 md:w-12"
+              />
+              <div className="flex flex-col flex-1 text-white justify-center items-center">
+                <span className="text-sm font-normal">
+                  {new Date(Date.parse(order.date)).toLocaleDateString()}
+                </span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-xs font-semibold">
+                  {order.total.toFixed(2)} TL
+                </span>
+              </div>
             </div>
-            <div className="flex items-center">
-              <span className="text-xs font-semibold">{order.total.toFixed(2)} TL</span>
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

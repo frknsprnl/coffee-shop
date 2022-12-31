@@ -19,13 +19,14 @@ import Profile from "./pages/User/components/Profile/Profile";
 import Order from "./pages/User/components/Order/Order";
 import Password from "./pages/User/components/Edit/Password";
 import Email from "./pages/User/components/Edit/Email";
-import Address from './pages/User/components/Edit/Address';
+import Address from "./pages/User/components/Edit/Address";
 import Article from "./pages/Article";
 import Edit from "./pages/User/components/Edit/Edit";
 import Error from "./pages/Error";
 import PrivateRoute from "./routes/PrivateRoutes";
 import { RecoilRoot } from "recoil";
 import LoggedInPrivateRoute from "./routes/LoggedInPrivateRoutes";
+import OrderSingle from "./pages/User/components/Order/OrderSingle";
 
 const router = createBrowserRouter([
   {
@@ -45,8 +46,8 @@ const router = createBrowserRouter([
     element: <Blog />,
   },
   {
-    path: '/blog/article/:id',
-    element: <Article />
+    path: "/blog/article/:id",
+    element: <Article />,
   },
   {
     path: "/contact",
@@ -76,6 +77,7 @@ const router = createBrowserRouter([
         children: [
           { path: "profile", element: <Profile /> },
           { path: "orders", element: <Order /> },
+          { path: "orders/:orderId", element: <OrderSingle /> },
           {
             path: "edit",
             element: <Edit />,

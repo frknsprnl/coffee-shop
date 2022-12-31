@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useToastState } from "../../Recoil/Error/useToastState";
 import { useLoadingState } from "../../Recoil/Loading/useLoadingState";
-import Modal from "../../components/Modal";
+import LoadingModal from "../../components/LoadingModal";
 
 function MainLayout({ children }) {
   const location = useLocation();
@@ -65,7 +65,7 @@ function MainLayout({ children }) {
         limit={2}
         hideProgressBar={true}
       />
-      {isLoading && <Modal />}
+      {isLoading && <LoadingModal />}
       {children}
       {showFooter && <Footer />}
     </>

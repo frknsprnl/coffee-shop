@@ -53,7 +53,7 @@ function Address() {
       </Link>
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-5 w-4/5 lg:w-3/5"
+        className="flex flex-col gap-5 w-full md:w-4/5"
         autoComplete="off"
         noValidate
       >

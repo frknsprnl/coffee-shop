@@ -1,7 +1,7 @@
 import React from "react";
 import coffeeCup from "../assets/coffee-cup.jpg";
 
-function Modal() {
+function LoadingModal() {
   return (
     <div className="h-full w-full">
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 select-none">
@@ -23,4 +23,4 @@ function Modal() {
   );
 }
 
-export default Modal;
+export default LoadingModal;

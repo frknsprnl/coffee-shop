@@ -16,7 +16,7 @@ function Profile() {
           className="text-3xl hover:text-[#cda154]"
         />
       </Link>
-      <div className="flex flex-col gap-5 h-full justify-center">
+      <div className="flex flex-col gap-5 h-full justify-center w-full md:w-4/5">
         <div className="flex gap-2">
           <InputField
             label="Ad"
