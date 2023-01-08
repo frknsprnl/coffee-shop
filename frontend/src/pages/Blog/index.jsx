@@ -5,6 +5,7 @@ import axios from "axios";
 import { useToastState } from "../../Recoil/Error/useToastState";
 import Pagination from "../../components/Pagination";
 import { useSearchParams } from "react-router-dom";
+import { useLoadingState } from "../../Recoil/Loading/useLoadingState";
 
 function Blog() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,11 +16,17 @@ function Blog() {
     localStorage.getItem("currentPage") || 1
   );
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       await axios
-        .get(`${import.meta.env.VITE_BASE_URL}/blog/articles?currentPage=${currentPage}`)
+        .get(
+          `${
+            import.meta.env.VITE_BASE_URL
+          }/blog/articles?currentPage=${currentPage}`
+        )
         .then((resp) => {
           setBlogs(resp.data.articles);
           setBlogCount(resp.data.articleCount);
@@ -28,7 +35,7 @@ function Blog() {
         .catch((err) => {
           setToastMsg({ isError: true, message: err.response.data.message });
           localStorage.removeItem("currentPage");
-        });
+        }).finally(() => setIsLoading(false))
     })();
   }, [currentPage]);
 

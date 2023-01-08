@@ -6,15 +6,18 @@ import { useToastState } from "../../Recoil/Error/useToastState";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import { useLoadingState } from "../../Recoil/Loading/useLoadingState";
 
 function Article() {
   const { setToastMsg } = useToastState();
   const location = useLocation();
   const articleId = location.pathname.split("/").pop();
   const [article, setArticle] = useState({});
+  const { setIsLoading } = useLoadingState();
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       await axios
         .get(`${import.meta.env.VITE_BASE_URL}/blog/article/${articleId}`)
         .then((resp) => {
@@ -22,7 +25,8 @@ function Article() {
         })
         .catch((err) => {
           setToastMsg({ isError: true, message: err.response.data });
-        });
+        })
+        .finally(() => setIsLoading(false));
     })();
   }, []);
 
@@ -31,7 +35,10 @@ function Article() {
       <Helmet>
         <title>{article.title + " | The Coffee Shop"}</title>
       </Helmet>
-      <Link to="/blog" className="fixed top-28 left-12 lg:left-28 hidden md:flex">
+      <Link
+        to="/blog"
+        className="fixed top-28 left-12 lg:left-28 hidden md:flex"
+      >
         <FontAwesomeIcon
           icon={faArrowLeftLong}
           className="text-4xl text-white hover:text-[#cda154]"
@@ -46,9 +53,9 @@ function Article() {
         <h1 className="text-white text-3xl text-center pt-8 pb-4">
           {article.title}
         </h1>
-        <span className="text-white mx-auto text-sm md:text-base w-5/6 md:w-2/3 lg:w-1/2 py-3">
+        <pre className="text-white font-sans mx-auto whitespace-pre-wrap text-sm md:text-base w-5/6 md:w-2/3 lg:w-1/2 py-3">
           {article.body}
-        </span>
+        </pre>
       </div>
     </MainLayout>
   );
