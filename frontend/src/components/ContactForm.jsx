@@ -38,7 +38,7 @@ function ContactForm() {
     onSubmit: async (values, { resetForm }) => {
       setIsLoading(true);
       await axios
-        .post("http://localhost:3000/mail/sendmail", values)
+        .post(`${import.meta.env.VITE_BASE_URL}/mail/sendmail`, values)
         .then((resp) => {
           console.log(resp);
           setToastMsg({ isError: false, message: resp.data.message });

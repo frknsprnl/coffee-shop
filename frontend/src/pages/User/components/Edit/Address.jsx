@@ -9,10 +9,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToastState } from "../../../../Recoil/Error/useToastState";
+import { useLoadingState } from "../../../../Recoil/Loading/useLoadingState";
 
 function Address() {
   const navigate = useNavigate();
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
 
   const [validateAfterSubmit, setValidateAfterSubmit] = useState(false);
   const formik = useFormik({
@@ -22,12 +24,13 @@ function Address() {
     validationSchema: Yup.object({
       address: Yup.string()
         .max(254, "Adres 254 karakterden az olmalı.")
-        .required("Bu alan zorunludur.")
+        .required("Bu alan zorunludur."),
     }),
     validateOnChange: validateAfterSubmit,
     onSubmit: async (values, { resetForm }) => {
+      setIsLoading(true);
       await axios
-        .post("http://localhost:3000/user/setAddress", values, {
+        .post(`${import.meta.env.VITE_BASE_URL}/user/setAddress`, values, {
           headers: {
             "x-access-token": `${localStorage.getItem("access-token")}`,
           },
@@ -39,7 +42,8 @@ function Address() {
         })
         .catch((err) => {
           setToastMsg({ isError: true, message: err.response.data.message });
-        });
+        })
+        .finally(() => setIsLoading(false));
     },
   });
 

@@ -9,10 +9,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToastState } from "../../../../Recoil/Error/useToastState";
+import { useLoadingState } from "../../../../Recoil/Loading/useLoadingState";
 
 function Email() {
   const navigate = useNavigate();
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
 
   const [validateAfterSubmit, setValidateAfterSubmit] = useState(false);
   const formik = useFormik({
@@ -33,8 +35,9 @@ function Email() {
     }),
     validateOnChange: validateAfterSubmit,
     onSubmit: async (values, { resetForm }) => {
+      setIsLoading(true);
       await axios
-        .post("http://localhost:3000/user/changemail", values, {
+        .post(`${import.meta.env.VITE_BASE_URL}/user/changemail`, values, {
           headers: {
             "x-access-token": `${localStorage.getItem("access-token")}`,
           },
@@ -46,7 +49,8 @@ function Email() {
         })
         .catch((err) => {
           setToastMsg({ isError: true, message: err.response.data.message });
-        });
+        })
+        .finally(() => setIsLoading(false));
     },
   });
 

@@ -35,7 +35,7 @@ function Basket() {
 
   const getCart = async () => {
     await axios
-      .get("http://localhost:3000/cart/getitems", {
+      .get(`${import.meta.env.VITE_BASE_URL}/cart/getitems`, {
         headers: {
           "x-access-token": `${localStorage.getItem("access-token")}`,
         },
@@ -81,7 +81,7 @@ function Basket() {
     if ((inc === false && inputValue > 1) || inc === true) {
       await axios
         .post(
-          "http://localhost:3000/cart/additem",
+          `${import.meta.env.VITE_BASE_URL}/cart/additem`,
           { product_id: productId, quantity: inc ? 1 : -1 },
           {
             headers: {
@@ -102,7 +102,7 @@ function Basket() {
   const removeItem = async (productId) => {
     await axios
       .post(
-        "http://localhost:3000/cart/removeitem",
+        `${import.meta.env.VITE_BASE_URL}/cart/removeitem`,
         { product_id: productId },
         {
           headers: {
@@ -127,7 +127,7 @@ function Basket() {
   const removeCart = async () => {
     setCartProducts([]);
     await axios
-      .post("http://localhost:3000/cart/removecart", "", {
+      .post(`${import.meta.env.VITE_BASE_URL}/cart/removecart`, "", {
         headers: {
           "x-access-token": `${localStorage.getItem("access-token")}`,
         },
@@ -141,7 +141,7 @@ function Basket() {
   const completePayment = async (products, total) => {
     await axios
       .post(
-        "http://localhost:3000/orders/setorder",
+        `${import.meta.env.VITE_BASE_URL}/orders/setorder`,
         { products, total },
         {
           headers: {

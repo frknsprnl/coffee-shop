@@ -19,7 +19,7 @@ function Blog() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://localhost:3000/blog/articles?currentPage=${currentPage}`)
+        .get(`${import.meta.env.VITE_BASE_URL}/blog/articles?currentPage=${currentPage}`)
         .then((resp) => {
           setBlogs(resp.data.articles);
           setBlogCount(resp.data.articleCount);

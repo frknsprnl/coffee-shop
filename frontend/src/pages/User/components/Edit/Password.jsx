@@ -9,10 +9,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToastState } from "../../../../Recoil/Error/useToastState";
+import { useLoadingState } from "../../../../Recoil/Loading/useLoadingState";
 
 function Password() {
   const navigate = useNavigate();
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
 
   const [validateAfterSubmit, setValidateAfterSubmit] = useState(false);
   const formik = useFormik({
@@ -38,8 +40,9 @@ function Password() {
     }),
     validateOnChange: validateAfterSubmit,
     onSubmit: async (values, { resetForm }) => {
+      setIsLoading(true);
       await axios
-        .post("http://localhost:3000/user/changepassword", values, {
+        .post(`${import.meta.env.VITE_BASE_URL}/user/changepassword`, values, {
           headers: {
             "x-access-token": `${localStorage.getItem("access-token")}`,
           },
@@ -51,7 +54,8 @@ function Password() {
         })
         .catch((err) => {
           setToastMsg({ isError: true, message: err.response.data.message });
-        });
+        })
+        .finally(() => setIsLoading(false));
     },
   });
   return (

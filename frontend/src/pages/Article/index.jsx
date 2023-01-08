@@ -16,7 +16,7 @@ function Article() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://localhost:3000/blog/article/${articleId}`)
+        .get(`${import.meta.env.VITE_BASE_URL}/blog/article/${articleId}`)
         .then((resp) => {
           setArticle(resp.data.article);
         })
@@ -39,7 +39,7 @@ function Article() {
       </Link>
       <div className="py-4 px-2 md:px-8 flex flex-col">
         <img
-          src={`http://localhost:3000/blog/${article.image}`}
+          src={`${import.meta.env.VITE_BASE_URL}/blog/${article.image}`}
           className="w-11/12 md:w-3/4 lg:w-1/2 rounded-xl mx-auto grayscale-[40%] hover:grayscale-0 duration-500 bg-contain h-56 md:h-80"
           alt=""
         />

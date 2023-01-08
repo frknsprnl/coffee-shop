@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function BasketItem({ decrement, increment, remove, ...props }) {
   return (
     <div className="flex justify-between items-center p-4 md:p-5">
-      <img src={`http://localhost:3000/product/${props.image}`} alt="" className="w-12 md:w-16" />
+      <img src={`${import.meta.env.VITE_BASE_URL}/product/${props.image}`} alt="" className="w-12 md:w-16" />
       <div className="flex flex-1 text-white px-2 md:px-2 lg:px-10 justify-between items-center">
         <span className="text-sm font-medium">{props.name}</span>
         <div className="whitespace-nowrap rounded-lg">

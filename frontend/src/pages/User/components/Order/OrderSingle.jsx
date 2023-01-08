@@ -5,25 +5,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { useLoadingState } from "../../../../Recoil/Loading/useLoadingState";
 
 function OrderSingle() {
   const { orderId } = useParams();
   const [order, setOrder] = useState({ products: [] });
+  const { setIsLoading } = useLoadingState();
 
   useEffect(() => {
     if (orderId) {
       (async () => {
+        setIsLoading(true);
         await axios
-          .get(`http://localhost:3000/orders/getorder/${orderId}`, {
+          .get(`${import.meta.env.VITE_BASE_URL}/orders/getorder/${orderId}`, {
             headers: {
               "x-access-token": `${localStorage.getItem("access-token")}`,
             },
           })
           .then((resp) => {
-            console.log(resp.data.orders);
+            // console.log(resp.data.orders);
             setOrder(resp.data.orders);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err))
+          .finally(() => setIsLoading(false));
       })();
     }
   }, []);
@@ -76,7 +80,9 @@ function OrderSingle() {
             key={product._id}
           >
             <img
-              src={`http://localhost:3000/product/${product.product.productImage}`}
+              src={`${import.meta.env.VITE_BASE_URL}/product/${
+                product.product.productImage
+              }`}
               alt=""
               className="w-10 md:w-12"
             />

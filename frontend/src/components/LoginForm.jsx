@@ -7,11 +7,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLoginState } from "../Recoil/User/useLoginState";
 import { useToastState } from "../Recoil/Error/useToastState";
+import { useLoadingState } from "../Recoil/Loading/useLoadingState";
 
 function LoginForm() {
   const navigate = useNavigate();
   const { setIsLoggedIn } = useLoginState();
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
 
   const [validateAfterSubmit, setValidateAfterSubmit] = useState(false);
   const formik = useFormik({
@@ -31,11 +33,13 @@ function LoginForm() {
     }),
     validateOnChange: validateAfterSubmit,
     onSubmit: async (values, { resetForm }) => {
+      setIsLoading(true);
       await axios
-        .post("http://localhost:3000/user/login", values)
+        .post(`${import.meta.env.VITE_BASE_URL}/user/login`, values)
         .then((resp) => {
           localStorage.setItem("access-token", resp.data.user.token);
           resetForm();
+
           setIsLoggedIn(true);
           setToastMsg({
             isError: false,
@@ -45,7 +49,8 @@ function LoginForm() {
         })
         .catch((err) => {
           setToastMsg({ isError: true, message: err.response.data.message });
-        });
+        })
+        .finally(() => setIsLoading(false));
     },
   });
   return (

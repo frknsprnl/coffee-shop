@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useLoadingState } from "../../../../Recoil/Loading/useLoadingState";
 
 function Order() {
   const [orders, setOrders] = useState([]);
+  const { setIsLoading } = useLoadingState();
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       await axios
-        .get("http://localhost:3000/orders/getorders", {
+        .get(`${import.meta.env.VITE_BASE_URL}/orders/getorders`, {
           headers: {
             "x-access-token": `${localStorage.getItem("access-token")}`,
           },
@@ -21,7 +24,8 @@ function Order() {
         })
         .catch((err) => {
           // console.log(err);
-        });
+        })
+        .finally(() => setIsLoading(false));
     })();
   }, []);
 
@@ -39,11 +43,11 @@ function Order() {
         )}
         {orders.map((order) => (
           <Link to={`orders/${order._id}`} key={order._id}>
-            <div
-              className="flex justify-between items-center px-4 py-3 rounded-xl border-[1.6px] hover:border-[#cda154]" 
-            >
+            <div className="flex justify-between items-center px-4 py-3 rounded-xl border-[1.6px] hover:border-[#cda154]">
               <img
-                src={`http://localhost:3000/product/${order.products[0].product.productImage}`}
+                src={`${import.meta.env.VITE_BASE_URL}/product/${
+                  order.products[0].product.productImage
+                }`}
                 alt=""
                 className="w-10 md:w-12"
               />

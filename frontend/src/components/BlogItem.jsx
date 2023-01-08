@@ -6,7 +6,7 @@ function BlogItem({ ...props }) {
     <div className="border-[1.6px] w-72 md:w-96 h-[13rem] md:h-[24rem] rounded-xl overflow-hidden grayscale-[60%] hover:grayscale-0 hover:border-[#cda154] duration-700">
       <Link to={`article/${props.articleId}`} className="flex flex-col px-2">
         <img
-          src={`http://localhost:3000/blog/${props.image}`}
+          src={`${import.meta.env.VITE_BASE_URL}/blog/${props.image}`}
           alt=""
           className="w-full h-36 md:h-52 object-fill rounded-br-lg rounded-bl-lg"
         />

@@ -13,6 +13,7 @@ import { useLoginState } from "../../Recoil/User/useLoginState";
 import { useToastState } from "../../Recoil/Error/useToastState";
 import axios from "axios";
 import OrderSingle from "./components/Order/OrderSingle";
+import { useLoadingState } from "../../Recoil/Loading/useLoadingState";
 
 function User() {
   const location = useLocation();
@@ -20,11 +21,13 @@ function User() {
   const { user, setUser } = useUserState();
   const { setIsLoggedIn } = useLoginState();
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
 
   useEffect(() => {
     (async () => {
+      setIsLoading(false);
       await axios
-        .get("http://localhost:3000/user/getuser", {
+        .get(`${import.meta.env.VITE_BASE_URL}/user/getuser`, {
           headers: {
             "x-access-token": `${localStorage.getItem("access-token")}`,
           },
@@ -39,7 +42,8 @@ function User() {
             isError: false,
             message: "Çıkış işleminiz gerçekleştirildi.",
           });
-        });
+        })
+        .finally(() => setIsLoading(false));
     })();
   }, [location.pathname === "/user"]);
 

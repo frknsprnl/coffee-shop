@@ -5,31 +5,36 @@ import { useToastState } from "../../Recoil/Error/useToastState";
 import { useCartState } from "../../Recoil/Cart/useCartState";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLoadingState } from "../../Recoil/Loading/useLoadingState";
 
 function Shop() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const { cartProducts, setCartProducts } = useCartState();
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       await axios
-        .get("http://localhost:3000/product/getproducts")
+        .get(`${import.meta.env.VITE_BASE_URL}/product/getproducts`)
         .then((resp) => {
           setProducts(resp.data.products);
         })
         .catch((err) => {
           setToastMsg({ isError: true, message: err.response.data.message });
-        });
+        })
+        .finally(() => setIsLoading(false));
     })();
 
     getCart();
   }, []);
 
   const getCart = async () => {
+    setIsLoading(true);
     await axios
-      .get("http://localhost:3000/cart/getitems", {
+      .get(`${import.meta.env.VITE_BASE_URL}/cart/getitems`, {
         headers: {
           "x-access-token": `${localStorage.getItem("access-token")}`,
         },
@@ -40,13 +45,15 @@ function Shop() {
       })
       .catch((err) => {
         // console.log(err.response.data);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const addToCart = async (productId) => {
+    setIsLoading(true);
     await axios
       .post(
-        "http://localhost:3000/cart/additem",
+        `${import.meta.env.VITE_BASE_URL}/cart/additem`,
         { product_id: productId, quantity: 1 },
         {
           headers: {
@@ -65,7 +72,8 @@ function Shop() {
             message: "Ürün almak için giriş yapın.",
           });
         }
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
   return (
     <MainLayout>
@@ -77,7 +85,9 @@ function Shop() {
           return (
             <ShopItem
               key={product._id}
-              img={`http://localhost:3000/product/${product.productImage}`}
+              img={`${import.meta.env.VITE_BASE_URL}/product/${
+                product.productImage
+              }`}
               name={product.name}
               price={product.price}
               quantity={cartProducts[index] ? cartProducts[index].quantity : ""}

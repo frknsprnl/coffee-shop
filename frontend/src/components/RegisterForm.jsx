@@ -7,11 +7,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLoginState } from "../Recoil/User/useLoginState";
 import { useToastState } from "../Recoil/Error/useToastState";
+import { useLoadingState } from "../Recoil/Loading/useLoadingState";
 
 function RegisterForm() {
   const navigate = useNavigate();
   const { setIsLoggedIn } = useLoginState();
   const { setToastMsg } = useToastState();
+  const { setIsLoading } = useLoadingState();
 
   const [validateAfterSubmit, setValidateAfterSubmit] = useState(false);
   const formik = useFormik({
@@ -45,8 +47,9 @@ function RegisterForm() {
     }),
     validateOnChange: validateAfterSubmit,
     onSubmit: async (values, { resetForm }) => {
+      setIsLoading(true);
       await axios
-        .post("http://localhost:3000/user/signup", values)
+        .post(`${import.meta.env.VITE_BASE_URL}/user/signup`, values)
         .then((resp) => {
           localStorage.setItem("access-token", resp.data.token);
           resetForm();
@@ -55,8 +58,9 @@ function RegisterForm() {
           setToastMsg({ isError: false, message: resp.data.message });
         })
         .catch((err) => {
-          setToastMsg({isError: true, message: err.response.data.message});
-        });
+          setToastMsg({ isError: true, message: err.response.data.message });
+        })
+        .finally(() => setIsLoading(false));
     },
   });
 
@@ -144,7 +148,12 @@ function RegisterForm() {
         }`}
       />
       <div className="w-full">
-        <Button name="Kayıt Ol" onClick={() => {setValidateAfterSubmit(true)}} />
+        <Button
+          name="Kayıt Ol"
+          onClick={() => {
+            setValidateAfterSubmit(true);
+          }}
+        />
       </div>
     </form>
   );
