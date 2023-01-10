@@ -45,16 +45,16 @@ function Footer() {
             Çok satanlar
           </h1>
           <div className="flex flex-col text-sm md:text-base text-white">
-            <Link to="" className="py-2 hover:text-[#cda154]">
+            <Link to="/shop" className="py-2 hover:text-[#cda154]">
               The Coffee 250g
             </Link>
-            <Link to="" className="py-2 hover:text-[#cda154]">
+            <Link to="/shop" className="py-2 hover:text-[#cda154]">
               The Coffee 1kg
             </Link>
-            <Link to="" className="py-2 hover:text-[#cda154]">
+            <Link to="/shop" className="py-2 hover:text-[#cda154]">
               The Coffee French Press seti
             </Link>
-            <Link to="" className="py-2 hover:text-[#cda154]">
+            <Link to="/shop" className="py-2 hover:text-[#cda154]">
               The Coffee Başlangıç Seti
             </Link>
           </div>

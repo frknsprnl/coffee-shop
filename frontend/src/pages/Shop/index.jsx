@@ -65,7 +65,7 @@ function Shop() {
         setToastMsg({ isError: false, message: resp.data.message });
       })
       .catch((err) => {
-        if (err.response.statusText === "Unauthorized") {
+        if (err.response.status === 401) {
           navigate("/login");
           setToastMsg({
             isError: true,
@@ -77,7 +77,7 @@ function Shop() {
   };
   return (
     <MainLayout>
-      <div className="h-full p-8 flex gap-6 flex-wrap justify-center">
+      <div className="h-full py-8 px-2 md:px-8 flex gap-4 md:gap-6 flex-wrap justify-center">
         {products.map((product) => {
           let index = cartProducts.findIndex(
             (item) => item.product._id == product._id
@@ -96,7 +96,7 @@ function Shop() {
                   ? true
                   : false
               }
-              className="h-64 w-52 md:h-80 md:w-64"
+              className="h-60 w-40 md:h-80 md:w-64"
               onClick={async () => {
                 await addToCart(product._id);
                 await getCart();

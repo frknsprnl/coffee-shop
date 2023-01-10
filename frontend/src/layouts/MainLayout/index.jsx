@@ -54,13 +54,15 @@ function MainLayout({ children }) {
     <>
       <Header />
       <ToastContainer
-        autoClose={2500}
+        position="bottom-right"
+        draggable={false}
+        autoClose={1200}
         toastStyle={{
           color: "#fff",
           backgroundColor: "#000",
+          fontSize: "16px",
           border: "1.6px solid",
           borderRadius: ".75rem",
-          top: "5rem",
         }}
         limit={2}
         hideProgressBar={true}

@@ -9,7 +9,7 @@ import coffee2 from "../../assets/500g.png";
 import coffee3 from "../../assets/250g.png";
 import MainLayout from "../../layouts/MainLayout";
 import { Link } from "react-router-dom";
-import Fade from "react-reveal/Fade";
+import { Zoom, Fade, Slide } from "react-awesome-reveal";
 import Button from "../../components/Button";
 import ShopItem from "../../components/ShopItem";
 
@@ -18,15 +18,15 @@ function Home() {
     <MainLayout>
       <div className="flex flex-col md:flex-row h-[36rem] w-full px-4">
         <div className="text-white w-full flex flex-1 flex-col text-center justify-center ">
-          <Fade top>
+          <Slide direction="down">
             <h1 className="text-3xl lg:text-5xl font-medium py-3">
               Dünyanın En Güçlü Kahvesi!
             </h1>
             <span className="text-xl md:text-4xl font-normal text-[#cda154] py-3">
               YÜKSEK KAFEİN, RAHAT İÇİM
             </span>
-          </Fade>
-          <Fade left>
+          </Slide>
+          <Slide>
             <div className="flex justify-center pt-5">
               <Link
                 to="/shop"
@@ -38,8 +38,8 @@ function Home() {
                 />
               </Link>
             </div>
-          </Fade>
-          <Fade left>
+          </Slide>
+          <Slide>
             <div className="py-8 px-24 hidden lg:block">
               <span className="text-center">
                 2016 yılında, %100 doğal bir şekilde yüksek kafeini yumuşak bir
@@ -51,7 +51,7 @@ function Home() {
                 dünyanın açık ara en güçlü kahvesi!
               </span>
             </div>
-          </Fade>
+          </Slide>
         </div>
         <div className="relative select-none flex flex-1">
           <img
@@ -74,43 +74,39 @@ function Home() {
         <h1 className="text-[#cda154] text-lg md:text-2xl text-center py-2">
           -En Çok Satın Alınan Ürünler-
         </h1>
-        <Fade right>
+        <Zoom>
           <div className="flex flex-col md:flex-row gap-4 items-center justify-center py-6">
             <ShopItem
-              img={coffee1}             
+              img={coffee1}
               name="The Coffee (1 kg)"
               price="249.99"
               button="false"
               className="h-52 w-52 md:h-64 md:w-64"
             />
             <ShopItem
-              img={coffee2}             
+              img={coffee2}
               name="The Coffee (500 g)"
               price="149.99"
               button="false"
               className="h-52 w-52 md:h-64 md:w-64"
             />
             <ShopItem
-              img={coffee3}             
+              img={coffee3}
               name="The Coffee (250 g)"
               price="74.99"
               button="false"
               className="h-52 w-52 md:h-64 md:w-64"
             />
           </div>
-        </Fade>
+        </Zoom>
       </div>
       <div className="py-4 md:py-10 px-4 md:px-8">
         <div className="flex flex-col md:flex-row py-2 md:py-6">
-          <Fade left>
-            <img
-              src={natureImg}
-              alt=""
-              className="h-52 md:h-64 lg:h-96 rounded-xl"
-            />
-          </Fade>
-          <Fade top>
-            <div className="flex flex-col items-center w-full py-6 md:py-0">
+          <Fade
+            direction="down"
+            className="flex flex-1 justify-center items-center order-2 md:order-1"
+          >
+            <div className="flex flex-col items-center justify-center w-full py-6 md:py-0">
               <h1 className="text-[#cda154] text-base md:text-xl">
                 - En Güçlü Kahve -
               </h1>
@@ -122,10 +118,20 @@ function Home() {
               </p>
             </div>
           </Fade>
+          <Slide direction="right" className="order-1 md:order-2">
+            <img
+              src={natureImg}
+              alt=""
+              className="h-52 md:h-64 lg:h-96 rounded-xl mx-auto"
+            />
+          </Slide>
         </div>
         <div className="flex flex-col md:flex-row py-2 md:py-6">
-          <Fade top>
-            <div className="flex flex-col items-center w-full py-6 md:py-0 order-2 md:order-1">
+          <Fade
+            direction="down"
+            className="flex flex-1 justify-center items-center order-2"
+          >
+            <div className="flex flex-col items-center w-full py-6 md:py-0">
               <h1 className="text-[#cda154] text-base md:text-xl">
                 - En Taze Kahve -
               </h1>
@@ -139,23 +145,19 @@ function Home() {
               </p>
             </div>
           </Fade>
-          <Fade right>
+          <Slide direction="left" className="order-1">
             <img
               src={coffeeRoast}
               alt=""
-              className="h-52 md:h-64 lg:h-96 rounded-xl order-1 md:order-2"
+              className="h-52 md:h-64 lg:h-96 rounded-xl mx-auto"
             />
-          </Fade>
+          </Slide>
         </div>
         <div className="flex flex-col md:flex-row pt-2 pb-0 md:py-6">
-          <Fade left>
-            <img
-              src={shippingImg}
-              alt=""
-              className="h-52 md:h-64 lg:h-96 rounded-xl"
-            />
-          </Fade>
-          <Fade top>
+          <Fade
+            direction="down"
+            className="flex flex-1 justify-center items-center order-2 md:order-1"
+          >
             <div className="flex flex-col items-center w-full py-6 md:py-0">
               <h1 className="text-[#cda154] text-base md:text-xl">
                 - Hızlı ve Ücretsiz Kargo -
@@ -170,6 +172,13 @@ function Home() {
               </p>
             </div>
           </Fade>
+          <Slide direction="right" className="order-1 md:order-2">
+            <img
+              src={shippingImg}
+              alt=""
+              className="h-52 md:h-64 lg:h-96 rounded-xl mx-auto"
+            />
+          </Slide>
         </div>
       </div>
     </MainLayout>

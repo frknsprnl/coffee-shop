@@ -8,7 +8,7 @@ function About() {
       <div className="h-full flex pt-6 pb-12 justify-center">
         <div className="w-5/6 md:w-3/6 text-white">
           <h1 className="text-2xl md:text-3xl text-center mb-4">
-            The Coffee Shop
+            <span className="text-[#cda154]">The Coffee</span> Shop
           </h1>
           <div className="flex flex-col">
             <span className="text-sm md:text-base">
@@ -26,7 +26,7 @@ function About() {
             </span>
           </div>
           <h1 className="text-2xl md:text-3xl text-center mt-8 mb-4">
-            Dünyanın En Güçlü Kahvesi
+            Dünyanın <span className="text-[#cda154]">En Güçlü Kahvesi</span>
           </h1>
           <div className="flex flex-col justify-center">
             <img
@@ -55,7 +55,7 @@ function About() {
             </span>
           </div>
           <h1 className="text-2xl md:text-3xl text-center mt-8 mb-4">
-            Kafein Oranı
+            <span className="text-[#cda154]">Kafein</span> Oranı
           </h1>
           <div className="flex flex-col justify-center">
             <span className="text-sm md:text-base">

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import textLogo from "../../assets/coffee-shop-text-logo.png";
 import logo from "../../assets/coffee-shop-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useToastState } from "../../Recoil/Error/useToastState";
 import { useCartState } from "../../Recoil/Cart/useCartState";
 import Navigation from "../../components/Navigation";
+import axios from "axios";
 
 function Header() {
   const location = useLocation();
@@ -30,6 +31,26 @@ function Header() {
       navigate("/");
       setToastMsg({ isError: false, message: "Başarıyla çıkış yaptınız." });
     }
+  };
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  const getCart = async () => {
+    await axios
+      .get(`${import.meta.env.VITE_BASE_URL}/cart/getitems`, {
+        headers: {
+          "x-access-token": `${localStorage.getItem("access-token")}`,
+        },
+      })
+      .then((resp) => {
+        // console.log(resp.data.cart);
+        setCartProducts(resp.data.cart);
+      })
+      .catch((err) => {
+        // console.log(err.response.data);
+      });
   };
 
   return (

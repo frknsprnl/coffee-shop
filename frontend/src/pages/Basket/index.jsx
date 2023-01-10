@@ -9,6 +9,7 @@ import { useToastState } from "../../Recoil/Error/useToastState";
 import Cart from "../../components/Cart";
 import Payment from "../../components/Payment";
 import { useNavigate } from "react-router-dom";
+import { useLoadingState } from "../../Recoil/Loading/useLoadingState";
 
 function Basket() {
   const { cartProducts, setCartProducts } = useCartState();
@@ -28,12 +29,14 @@ function Basket() {
     cvv: "",
   });
   const navigate = useNavigate();
+  const { setIsLoading } = useLoadingState();
 
   useEffect(() => {
     getCart();
   }, []);
 
   const getCart = async () => {
+    setIsLoading(true);
     await axios
       .get(`${import.meta.env.VITE_BASE_URL}/cart/getitems`, {
         headers: {
@@ -46,9 +49,10 @@ function Basket() {
       })
       .catch((err) => {
         // console.log(err.response.data);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
-
+  
   useEffect(() => {
     // console.log(cartProducts);
     calculateTotal();
@@ -79,6 +83,7 @@ function Basket() {
   const changeValue = async (productId, inc) => {
     let inputValue = document.getElementById(productId).value;
     if ((inc === false && inputValue > 1) || inc === true) {
+      setIsLoading(true);
       await axios
         .post(
           `${import.meta.env.VITE_BASE_URL}/cart/additem`,
@@ -95,11 +100,13 @@ function Basket() {
         })
         .catch((err) => {
           // console.log(err);
-        });
+        })
+        .finally(() => setIsLoading(false));
     }
   };
 
   const removeItem = async (productId) => {
+    setIsLoading(true);
     await axios
       .post(
         `${import.meta.env.VITE_BASE_URL}/cart/removeitem`,
@@ -116,7 +123,8 @@ function Basket() {
       })
       .catch((err) => {
         // console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const isPaymentPage = (bool) => {

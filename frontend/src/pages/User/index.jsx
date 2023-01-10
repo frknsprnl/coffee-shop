@@ -25,7 +25,7 @@ function User() {
 
   useEffect(() => {
     (async () => {
-      setIsLoading(false);
+      setIsLoading(true);
       await axios
         .get(`${import.meta.env.VITE_BASE_URL}/user/getuser`, {
           headers: {

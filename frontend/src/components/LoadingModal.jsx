@@ -18,7 +18,7 @@ function LoadingModal() {
           <span className="text-[#cda154] whitespace-nowrap py-2">Demleniyoruz...</span>
         </div>
       </div>
-      <div className="opacity-25 fixed inset-0 z-30 bg-black"></div>
+      <div className="fixed inset-0 z-30 bg-black"></div>
     </div>
   );
 }

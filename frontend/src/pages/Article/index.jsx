@@ -47,7 +47,7 @@ function Article() {
       <div className="py-4 px-2 md:px-8 flex flex-col">
         <img
           src={`${import.meta.env.VITE_BASE_URL}/blog/${article.image}`}
-          className="w-11/12 md:w-3/4 lg:w-1/2 rounded-xl mx-auto grayscale-[40%] hover:grayscale-0 duration-500 bg-contain h-56 md:h-80"
+          className="w-11/12 md:w-3/4 lg:w-1/2 rounded-xl mx-auto duration-500 object-cover h-56 md:h-[24rem]"
           alt=""
         />
         <h1 className="text-white text-3xl text-center pt-8 pb-4">

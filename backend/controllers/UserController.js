@@ -10,7 +10,7 @@ exports.createUser = async (req, res) => {
     const token = jwt.sign(
       { user_id: user._id, email: user.email },
       process.env.TOKEN_KEY,
-      { expiresIn: "2h" }
+      { expiresIn: "168h" }
     );
 
     user.token = token;
@@ -43,7 +43,7 @@ exports.loginUser = async (req, res) => {
           const token = jwt.sign(
             { user_id: user._id, email: user.email },
             process.env.TOKEN_KEY,
-            { expiresIn: "2h" }
+            { expiresIn: "168h" }
           );
 
           user.token = token;
