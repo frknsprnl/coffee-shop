@@ -9,6 +9,7 @@ router.route("/getuser").get(auth, userController.getUser);
 router.route("/changepassword").post(auth, userController.changePassword);
 router.route("/changemail").post(auth, userController.changeMail);
 router.route('/setaddress').post(auth, userController.setAddress);
-
+router.route('/getusers').get(auth, userController.getUsers);
+router.route('/deleteuser').post(auth, userController.deleteUser);
 
 module.exports = router;

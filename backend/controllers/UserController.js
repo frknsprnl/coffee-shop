@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Cart = require("../models/Cart");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -75,6 +76,7 @@ exports.getUser = async (req, res) => {
           surname: user.surname,
           email: user.email,
           address: user.address,
+          role: user.role,
         },
       });
     } else {
@@ -179,6 +181,46 @@ exports.setAddress = async (req, res) => {
           message: "Adres başarıyla değiştirildi.",
         });
       }
+    }
+  } else {
+    res.status(400).json({ status: "fail", message: "Kullanıcı bulunamadı." });
+  }
+};
+
+exports.getUsers = async (req, res) => {
+  const user = await User.findOne({ _id: req.user.user_id });
+  const users = await User.find({});
+
+  if (user) {
+    if (user.role === "admin") {
+      res.status(200).json({ status: "success", users });
+    } else {
+      res
+        .status(401)
+        .json({ status: "fail", message: "İşlem için yetkiniz yok." });
+    }
+  } else {
+    res.status(400).json({ status: "fail", message: "Kullanıcı bulunamadı." });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  const user = await User.findOne({ _id: req.user.user_id });
+
+  if (user) {
+    if (user.role === "admin") {
+      await User.findOneAndDelete({ _id: req.body._id }, async (err, user) => {
+        if (err) {
+          res.status(400).json({ status: "fail", error: err });
+        } else {
+          await Cart.findByIdAndDelete(user.cart);  
+          res.status(200).json({ status: "success", message: "Kullanıcı silindi." });
+        }
+      });
+    } else {
+      res
+        .status(401)
+        .json({ status: "fail", message: "İşlem için yetkiniz yok." });
     }
   } else {
     res.status(400).json({ status: "fail", message: "Kullanıcı bulunamadı." });

@@ -53,3 +53,27 @@ exports.getArticle = async (req, res) => {
     res.status(400).json({ status: "fail", message: "İçerik bulunamadı." });
   }
 };
+
+exports.getBlogs = async (req, res) => {
+  try {
+    const articles = await Article.find({});
+
+    res.status(200).json({ status: "success", articles });
+  } catch (err) {
+    res
+      .status(400)
+      .json({ status: "fail", message: "İçerik bulunamadı.", error: err });
+  }
+};
+
+exports.deleteArticle = async (req, res) => {
+  try {
+    await Article.findOneAndRemove({ _id: req.body.article_id });
+
+    res.status(200).json({ status: "success", message: "İçerik silindi." });
+  } catch (err) {
+    res
+      .status(400)
+      .json({ status: "fail", message: "İçerik bulunamadı.", error: err });
+  }
+};
