@@ -42,7 +42,7 @@ function Order() {
           <h1 className="text-center">Henüz hiç siparişiniz yok.</h1>
         )}
         {orders.map((order) => (
-          <Link to={`orders/${order._id}`} key={order._id}>
+          <Link to={`/user/orders/${order._id}`} key={order._id}>
             <div className="flex justify-between items-center px-4 py-3 rounded-xl border-[1.6px] hover:border-[#cda154]">
               <img
                 src={`${import.meta.env.VITE_BASE_URL}/product/${
